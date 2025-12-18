@@ -6,224 +6,206 @@
     <title>としま未来クリエイター・クエスト</title>
     <style>
         /* =========================================
-           画面表示用のスタイル（かわいいデザイン）
+           基本スタイル（画面用・変更なし）
            ========================================= */
         body {
-            font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-            background-color: #e0f7fa;
+            font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+            background-color: #f0f4f8;
             color: #333;
             margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
             padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0, 121, 107, 0.15);
-            border: 4px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-
-        h1 {
-            color: #00695c;
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 0px #b2dfdb;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-        }
-
-        /* ステップ進行の制御 */
-        .step-container { display: none; }
-        .step-container.active { display: block; animation: popIn 0.5s ease; }
-        @keyframes popIn { 
-            0% { opacity: 0; transform: scale(0.95); } 
-            100% { opacity: 1; transform: scale(1); } 
-        }
-
-        /* 質問フォーム */
-        .question-box {
-            margin-bottom: 30px;
-            background: #f1f8e9;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px dashed #aed581;
-        }
+        h1 { color: #0277bd; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
         
-        label {
-            display: block;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: #33691e;
-            margin-bottom: 10px;
-        }
+        .step-container { display: none; animation: fadeIn 0.4s ease; }
+        .step-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .hint {
-            font-size: 0.9em;
-            color: #558b2f;
-            background: #dcedc8;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: inline-block;
-            margin-bottom: 10px;
+        .question-box {
+            background: #e1f5fe;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #0288d1;
         }
-
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #01579b; font-size: 1.1em; }
+        .hint { font-size: 0.85em; color: #546e7a; margin-bottom: 8px; }
         input[type="text"], textarea {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-sizing: border-box;
-            background: #fff;
-            transition: 0.3s;
+            width: 100%; padding: 12px; border: 2px solid #b0bec5; border-radius: 8px;
+            font-size: 1em; box-sizing: border-box;
         }
+        input:focus, textarea:focus { border-color: #0288d1; outline: none; background: #f1f8e9; }
 
-        input[type="text"]:focus, textarea:focus {
-            border-color: #ff7043;
-            outline: none;
-            background: #fff3e0;
-        }
-
-        /* ナビゲーションボタン */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
         button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
-            transition: transform 0.2s;
+            padding: 12px 30px; font-size: 1.1em; border-radius: 30px; cursor: pointer; border: none; font-weight: bold;
+            transition: 0.2s;
         }
-
-        .btn-next { background: #ff7043; color: white; box-shadow: 0 4px 0 #d84315; margin-left: auto; }
-        .btn-prev { background: #b0bec5; color: white; box-shadow: 0 4px 0 #78909c; }
-        .btn-print { background: #009688; color: white; box-shadow: 0 4px 0 #00695c; width: 100%; margin-top: 20px; }
-
+        .btn-next { background: #ff9800; color: white; margin-left: auto; box-shadow: 0 4px 0 #f57c00; }
+        .btn-prev { background: #cfd8dc; color: #455a64; box-shadow: 0 4px 0 #b0bec5; }
+        .btn-print { background: #009688; color: white; width: 100%; margin-top: 20px; padding: 15px; font-size: 1.3em; box-shadow: 0 4px 0 #00796b; }
         button:hover { transform: translateY(-2px); }
         button:active { transform: translateY(2px); box-shadow: none; }
-
-        /* リセットボタン */
-        .reset-link {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-        }
-        .reset-link a { color: #999; text-decoration: underline; cursor: pointer; }
+        
+        .reset-link { text-align: center; margin-top: 30px; font-size: 0.8em; }
+        .reset-link a { color: #999; cursor: pointer; text-decoration: underline; }
 
         /* =========================================
-           印刷用のスタイル（A3横レイアウト）
+           印刷用スタイル（ビジネス・キャンバス風）
            ========================================= */
         #printable-sheet { display: none; }
 
         @media print {
             @page { size: A3 landscape; margin: 0; }
-            body { background: white; padding: 0; margin: 0; -webkit-print-color-adjust: exact; }
-            .container { display: none; } /* 入力画面を消す */
+            body { background: white; -webkit-print-color-adjust: exact; margin: 0; padding: 0; }
+            .container { display: none; }
             
             #printable-sheet {
                 display: block;
-                width: 410mm; /* A3横幅 */
-                height: 285mm; /* A3縦幅（余白考慮） */
+                width: 420mm; height: 297mm; /* A3サイズ */
                 padding: 15mm;
                 box-sizing: border-box;
-                font-family: serif;
+                font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+                background-color: #fff;
             }
 
             /* グリッドレイアウト */
             .sheet-grid {
                 display: grid;
-                grid-template-columns: 1fr 1.2fr 1fr; /* 中央を少し広く */
+                grid-template-columns: 1fr 1.4fr 1fr; /* 中央を広く */
                 grid-template-rows: auto 1fr 1fr;
-                gap: 20px;
+                gap: 15px;
                 height: 100%;
+                border: 2px solid #333; /* 外枠 */
+                background: #333; /* 隙間を黒くして区切り線にする */
             }
 
             /* ヘッダー */
             .sheet-header {
                 grid-column: 1 / -1;
-                border-bottom: 4px double #333;
-                padding-bottom: 10px;
+                background: white;
+                padding: 10px 20px;
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-end;
+                align-items: center;
+                border-bottom: 2px solid #333;
             }
-            .sheet-title { font-size: 28pt; font-weight: bold; }
-            .sheet-profile { font-size: 16pt; }
+            .sheet-title { font-size: 24pt; font-weight: 900; color: #333; letter-spacing: 2px; }
+            .sheet-profile { font-size: 14pt; font-weight: bold; border: 2px solid #333; padding: 5px 20px; border-radius: 30px; }
 
-            /* 各ボックス共通 */
-            .sheet-box {
-                border: 2px solid #333;
-                border-radius: 15px;
+            /* カード共通スタイル */
+            .sheet-card {
+                background: white;
                 padding: 15px;
                 position: relative;
-                page-break-inside: avoid;
-            }
-            .box-label {
-                position: absolute;
-                top: -12pt;
-                left: 15pt;
-                background: #333;
-                color: white;
-                padding: 2pt 15pt;
-                font-size: 14pt;
-                border-radius: 15px;
-                font-weight: bold;
-            }
-            .box-content {
-                margin-top: 15pt;
-                font-size: 13pt;
-                line-height: 1.5;
-                white-space: pre-wrap;
-            }
-
-            /* ① ミッション (左上) */
-            .area-mission { grid-column: 1 / 2; grid-row: 2 / 3; background-color: #fff9c4; }
-
-            /* ② アイデア・お絵かき (中央・縦長) */
-            .area-idea { 
-                grid-column: 2 / 3; grid-row: 2 / 4; 
-                border: 4px dashed #ff7043;
-                background-color: #fff;
                 display: flex;
                 flex-direction: column;
             }
-            .drawing-area {
+
+            /* 見出しラベルのデザイン */
+            .card-label {
+                display: inline-block;
+                padding: 5px 15px;
+                color: white;
+                font-weight: bold;
+                font-size: 12pt;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                position: absolute;
+                top: 0; left: 0;
+                border-bottom-right-radius: 10px;
+            }
+            
+            .card-content {
+                margin-top: 25px; /* ラベル分あける */
+                font-size: 11pt;
+                line-height: 1.4;
                 flex-grow: 1;
-                margin-top: 20px;
-                border: 1px solid #ddd;
-                background: #fafafa;
+                white-space: pre-wrap; /* 改行を反映 */
+            }
+            
+            /* サブ見出し */
+            .sub-title {
+                font-weight: bold;
+                border-bottom: 2px solid #eee;
+                margin-bottom: 5px;
+                margin-top: 10px;
+                color: #555;
+                font-size: 10pt;
+            }
+            .sub-title:first-child { margin-top: 0; }
+
+            /* --- 各エリアの個性 --- */
+
+            /* ① ミッション (左上) : 赤系 (Passion) */
+            .area-mission .card-label { background: #e53935; }
+            .area-mission { background: #ffebee; }
+
+            /* ② アイデア (中央) : 黄系 (Creativity) */
+            .area-idea .card-label { background: #fb8c00; font-size: 14pt; padding: 8px 20px; }
+            .area-idea { 
+                grid-column: 2 / 3; grid-row: 2 / 4; 
+                background: #fff;
+                border: 4px solid #fb8c00; /* ここだけ枠強調 */
+                z-index: 1; /* グリッド線より上に */
+            }
+            .idea-name {
+                text-align: center;
+                font-size: 22pt;
+                font-weight: bold;
+                color: #e65100;
+                margin: 20px 0 10px 0;
+                padding-bottom: 10px;
+                border-bottom: 2px dashed #fb8c00;
+            }
+            .idea-desc {
+                font-size: 12pt;
+                padding: 0 10px;
+                margin-bottom: 10px;
+                min-height: 60px;
+            }
+            /* お絵かきエリア：ドット方眼 */
+            .drawing-canvas {
+                flex-grow: 1;
+                border: 2px dashed #ccc;
+                border-radius: 10px;
+                background-color: #fafafa;
+                background-image: radial-gradient(#ddd 1px, transparent 1px);
+                background-size: 20px 20px; /* ドットの間隔 */
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: #ccc;
-                font-size: 18pt;
-                text-align: center;
+                color: #bbb;
+                font-weight: bold;
+                font-size: 16pt;
+                margin: 10px;
             }
 
-            /* ③ ビジネス (左下) */
-            .area-business { grid-column: 1 / 2; grid-row: 3 / 4; background-color: #e8f5e9; }
+            /* ③ ビジネス (左下) : 青系 (Logic) */
+            .area-business .card-label { background: #1e88e5; }
+            .area-business { background: #e3f2fd; }
 
-            /* ④ 未来 (右上) */
-            .area-future { grid-column: 3 / 4; grid-row: 2 / 3; background-color: #e1f5fe; }
+            /* ④ 未来 (右上) : 緑系 (Growth) */
+            .area-future .card-label { background: #43a047; }
+            .area-future { background: #e8f5e9; }
 
-            /* メンター欄 (右下) */
-            .area-mentor { grid-column: 3 / 4; grid-row: 3 / 4; border-style: dotted; border-width: 3px; border-color: #999; }
+            /* メンター (右下) : グレー (Support) */
+            .area-mentor { 
+                border: 2px dashed #999; 
+                background: #f5f5f5; 
+                display: flex; align-items: center; justify-content: center;
+            }
+            .mentor-text { color: #999; font-weight: bold; text-align: center; }
         }
     </style>
 </head>
@@ -231,32 +213,31 @@
 
     <div class="container">
         <h1>💡 としま未来クリエイター・クエスト</h1>
-        <div class="subtitle">質問にこたえて、キミだけのビジネス・アイデアシートをつくろう！</div>
+        <div class="subtitle">〜キミのアイデアで街を変えよう〜</div>
 
         <div id="step-0" class="step-container active">
             <div class="question-box">
-                <label>まずはキミのことを教えて！</label>
-                <div class="hint">入力した内容は自動で保存されるよ</div>
-                <input type="text" id="inName" placeholder="お名前（例：としま 花子）" oninput="saveData()">
+                <label>キミのプロフィール</label>
+                <div class="hint">名前と学年を入れてね</div>
+                <input type="text" id="inName" placeholder="例：としま 花子" oninput="saveData()">
                 <br><br>
-                <input type="text" id="inGrade" placeholder="学年（例：小学5年生）" oninput="saveData()">
+                <input type="text" id="inGrade" placeholder="例：小学5年生" oninput="saveData()">
             </div>
             <div class="nav-buttons">
-                <div></div> <button class="btn-next" onclick="goStep(1)">スタート！ ▶</button>
+                <div></div>
+                <button class="btn-next" onclick="goStep(1)">スタート！ ▶</button>
             </div>
         </div>
 
         <div id="step-1" class="step-container">
-            <h2>ステージ1：ミッション発見</h2>
+            <h2>📍 ステージ1：ミッション発見</h2>
             <div class="question-box">
-                <label>① 今、街の「こまった！」は何だろう？</label>
-                <div class="hint">例：フードロス、公園がつまらない、道が暗い</div>
-                <textarea id="inIssue" rows="3" placeholder="ここに書いてね" oninput="saveData()"></textarea>
+                <label>① 今、街の「こまった！」はなに？</label>
+                <textarea id="inIssue" rows="3" placeholder="例：公園にゴミが多い" oninput="saveData()"></textarea>
             </div>
             <div class="question-box">
-                <label>② それを解決したら、どんな「うれしい未来」になる？</label>
-                <div class="hint">例：みんなが笑顔になる、ゴミがなくなる</div>
-                <textarea id="inGoal" rows="3" placeholder="ここに書いてね" oninput="saveData()"></textarea>
+                <label>② それが解決すると、どんな未来になる？</label>
+                <textarea id="inGoal" rows="3" placeholder="例：みんなが気持ちよく遊べる！" oninput="saveData()"></textarea>
             </div>
             <div class="nav-buttons">
                 <button class="btn-prev" onclick="goStep(0)">◀ もどる</button>
@@ -265,15 +246,15 @@
         </div>
 
         <div id="step-2" class="step-container">
-            <h2>ステージ2：アイデアのタネ</h2>
+            <h2>💡 ステージ2：アイデアのタネ</h2>
             <div class="question-box">
-                <label>③ アイデアの名前を決めよう！</label>
-                <input type="text" id="inIdeaName" placeholder="かっこいい名前をつけてね" oninput="saveData()">
+                <label>③ アイデアに名前をつけよう！</label>
+                <input type="text" id="inIdeaName" placeholder="キャッチーな名前を！" oninput="saveData()">
             </div>
             <div class="question-box">
-                <label>④ どんな商品・サービスか言葉で教えて！</label>
-                <div class="hint">※絵は印刷したあとに、手書きで描くよ！</div>
-                <textarea id="inIdeaDesc" rows="5" placeholder="くわしく書いてみよう" oninput="saveData()"></textarea>
+                <label>④ どんな商品・サービス？（説明）</label>
+                <div class="hint">※絵は印刷したあとに描くよ</div>
+                <textarea id="inIdeaDesc" rows="4" placeholder="くわしく書いてみよう" oninput="saveData()"></textarea>
             </div>
             <div class="nav-buttons">
                 <button class="btn-prev" onclick="goStep(1)">◀ もどる</button>
@@ -282,19 +263,18 @@
         </div>
 
         <div id="step-3" class="step-container">
-            <h2>ステージ3：ビジネス設計図</h2>
+            <h2>🛠️ ステージ3：ビジネス設計図</h2>
             <div class="question-box">
                 <label>⑤【ターゲット】だれが喜ぶ？</label>
-                <div class="hint">「みんな」じゃなくて「お母さん」「観光客」など</div>
-                <input type="text" id="inTarget" placeholder="だれのために？" oninput="saveData()">
+                <input type="text" id="inTarget" placeholder="例：子育て中のお母さん" oninput="saveData()">
             </div>
             <div class="question-box">
-                <label>⑥【コスト】なにが必要？（お金・モノ）</label>
-                <textarea id="inCost" rows="2" placeholder="材料や道具を書いてね" oninput="saveData()"></textarea>
+                <label>⑥【コスト】なにが必要？</label>
+                <textarea id="inCost" rows="2" placeholder="例：材料費、場所代" oninput="saveData()"></textarea>
             </div>
             <div class="question-box">
-                <label>⑦【マーケティング】どうやって広める？</label>
-                <textarea id="inMarket" rows="2" placeholder="ポスター？ インスタグラム？" oninput="saveData()"></textarea>
+                <label>⑦【マーケティング】どう広める？</label>
+                <textarea id="inMarket" rows="2" placeholder="例：ポスター、SNS" oninput="saveData()"></textarea>
             </div>
             <div class="nav-buttons">
                 <button class="btn-prev" onclick="goStep(2)">◀ もどる</button>
@@ -303,10 +283,10 @@
         </div>
 
         <div id="step-4" class="step-container">
-            <h2>ステージ4：未来へ</h2>
+            <h2>🌈 ステージ4：未来へ</h2>
             <div class="question-box">
-                <label>⑧ これが実現したら、豊島区はどう変わる？</label>
-                <textarea id="inFuture" rows="3" placeholder="最後のまとめ！自由に書こう" oninput="saveData()"></textarea>
+                <label>⑧ 実現したら、豊島区はどう変わる？</label>
+                <textarea id="inFuture" rows="3" placeholder="最後のまとめ！" oninput="saveData()"></textarea>
             </div>
             <div class="nav-buttons">
                 <button class="btn-prev" onclick="goStep(3)">◀ もどる</button>
@@ -315,125 +295,99 @@
         </div>
 
         <div id="step-5" class="step-container">
-            <h2>🎉 おつかれさま！完成だよ！</h2>
+            <h2>🎉 完成！おめでとう！</h2>
             <p style="text-align:center;">
-                下のボタンを押して、シートを印刷（またはPDF保存）しよう。<br>
-                印刷したら、真ん中の空いているところに<br>
-                <strong>「色鉛筆やクレヨンで絵を描いて」</strong>仕上げてね！
+                下のボタンを押して印刷しよう。<br>
+                印刷したら、真ん中に<strong>「色鉛筆やクレヨン」</strong>で絵を描こう！
             </p>
-            <button class="btn-print" onclick="window.print()">🖨️ 印刷する / PDF保存</button>
-            
+            <button class="btn-print" onclick="window.print()">🖨️ シートを印刷する (A3)</button>
             <div class="nav-buttons">
-                 <button class="btn-prev" onclick="goStep(4)">◀ 修正する</button>
+                <button class="btn-prev" onclick="goStep(4)">◀ 修正する</button>
             </div>
-
-            <div class="reset-link">
-                <a onclick="clearData()">最初からやりなおす（データ削除）</a>
-            </div>
+            <div class="reset-link"><a onclick="clearData()">最初からやりなおす</a></div>
         </div>
     </div>
 
     <div id="printable-sheet">
         <div class="sheet-grid">
             <div class="sheet-header">
-                <div class="sheet-title">としまの未来をつくる！ ビジネスアイデア・シート</div>
+                <div class="sheet-title">TOSHIMA FUTURE CREATOR</div>
                 <div class="sheet-profile">
-                    名前：<span id="outName"></span>　（ <span id="outGrade"></span> ）
+                    CREATOR：<span id="outName"></span> (<span id="outGrade"></span>)
                 </div>
             </div>
 
-            <div class="sheet-box area-mission">
-                <div class="box-label">① ミッション</div>
-                <div class="box-content">
-                    <strong>【こまった課題】</strong><br>
+            <div class="sheet-card area-mission">
+                <span class="card-label">① MISSION</span>
+                <div class="card-content">
+                    <div class="sub-title">📢 今の課題（こまった！）</div>
                     <span id="outIssue"></span>
                     <br><br>
-                    <strong>【解決ゴール】</strong><br>
+                    <div class="sub-title">🏁 解決後のゴール</div>
                     <span id="outGoal"></span>
                 </div>
             </div>
 
-            <div class="sheet-box area-idea">
-                <div class="box-label">② アイデア</div>
-                <div style="text-align:center; font-size:20pt; font-weight:bold; margin-top:20px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    「 <span id="outIdeaName"></span> 」
-                </div>
-                <div class="box-content" style="height:100px; overflow:hidden; font-size:12pt; color:#333;">
-                    <span id="outIdeaDesc"></span>
-                </div>
-                <div class="drawing-area">
-                    ここにイラストや図解を描こう！<br>
-                    （クレヨン・色鉛筆OK！）
+            <div class="sheet-card area-idea">
+                <span class="card-label">② IDEA SKETCH</span>
+                <div class="idea-name">「 <span id="outIdeaName"></span> 」</div>
+                <div class="idea-desc"><span id="outIdeaDesc"></span></div>
+                <div class="drawing-canvas">
+                    DRAW YOUR IDEA HERE!
                 </div>
             </div>
 
-            <div class="sheet-box area-business">
-                <div class="box-label">③ ビジネスの仕組み</div>
-                <div class="box-content">
-                    <strong>【ターゲット】だれに？</strong><br>
+            <div class="sheet-card area-business">
+                <span class="card-label">③ BUSINESS MODEL</span>
+                <div class="card-content">
+                    <div class="sub-title">🎯 ターゲット (Who)</div>
                     <span id="outTarget"></span>
                     <br><br>
-                    <strong>【コスト】なにがいる？</strong><br>
+                    <div class="sub-title">💰 コスト (How much)</div>
                     <span id="outCost"></span>
                     <br><br>
-                    <strong>【マーケティング】広め方</strong><br>
+                    <div class="sub-title">📣 マーケティング (How to)</div>
                     <span id="outMarket"></span>
                 </div>
             </div>
 
-            <div class="sheet-box area-future">
-                <div class="box-label">④ 未来の変化</div>
-                <div class="box-content">
+            <div class="sheet-card area-future">
+                <span class="card-label">④ FUTURE IMPACT</span>
+                <div class="card-content">
+                    <div class="sub-title">🏙 アイデアが実現した未来</div>
                     <span id="outFuture"></span>
                 </div>
             </div>
 
-            <div class="sheet-box area-mentor">
-                <div class="box-label" style="background:#777;">メンターより</div>
-                <div style="text-align:center; color:#ccc; margin-top:40px;">
-                    （ここにプロからのコメントをもらおう！）
+            <div class="sheet-card area-mentor">
+                <div class="mentor-text">
+                    MENTOR FEEDBACK<br>
+                    <span style="font-size:0.8em; font-weight:normal;">プロからのコメントをもらおう</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ページ読み込み時にデータを復元
+        // データ復元・保存・削除ロジックは前回と同じ
         window.onload = function() {
             const fields = ['inName', 'inGrade', 'inIssue', 'inGoal', 'inIdeaName', 'inIdeaDesc', 'inTarget', 'inCost', 'inMarket', 'inFuture'];
-            fields.forEach(id => {
-                if(localStorage.getItem(id)) {
-                    document.getElementById(id).value = localStorage.getItem(id);
-                }
-            });
+            fields.forEach(id => { if(localStorage.getItem(id)) document.getElementById(id).value = localStorage.getItem(id); });
         };
-
-        // 入力するたびに自動保存
         function saveData() {
             const fields = ['inName', 'inGrade', 'inIssue', 'inGoal', 'inIdeaName', 'inIdeaDesc', 'inTarget', 'inCost', 'inMarket', 'inFuture'];
-            fields.forEach(id => {
-                localStorage.setItem(id, document.getElementById(id).value);
-            });
+            fields.forEach(id => { localStorage.setItem(id, document.getElementById(id).value); });
         }
-
-        // データを削除してリセット
         function clearData() {
-            if(confirm('本当に入力した内容を消してもいいですか？')) {
-                localStorage.clear();
-                location.reload();
-            }
+            if(confirm('データを削除しますか？')) { localStorage.clear(); location.reload(); }
         }
-
-        // ステップ切り替え
         function goStep(step) {
             document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
             document.getElementById('step-' + step).classList.add('active');
-            window.scrollTo(0, 0); // 上までスクロール
+            window.scrollTo(0, 0);
         }
-
-        // 印刷画面の準備
         function prepareSheet() {
-            // 入力値を表示エリアに転記
+            // データ転記
             document.getElementById('outName').innerText = document.getElementById('inName').value;
             document.getElementById('outGrade').innerText = document.getElementById('inGrade').value;
             document.getElementById('outIssue').innerText = document.getElementById('inIssue').value;
@@ -444,7 +398,6 @@
             document.getElementById('outCost').innerText = document.getElementById('inCost').value;
             document.getElementById('outMarket').innerText = document.getElementById('inMarket').value;
             document.getElementById('outFuture').innerText = document.getElementById('inFuture').value;
-
             goStep(5);
         }
     </script>
