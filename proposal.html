@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>としまキッズアイデアソン 協賛募集概要</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+        /* A4サイズ調整 */
+        .page {
+            width: 210mm;
+            height: 296.8mm; /* A4 height approx */
+            margin: 0 auto;
+            background: white;
+            padding: 12mm 15mm; /* 少し上下を詰めてスケジュール分を確保 */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        @media print {
+            body { background: none; }
+            .page { 
+                margin: 0; 
+                box-shadow: none;
+            }
+            .no-print { display: none; }
+        }
+        .accent-border {
+            border-left: 4px solid #1e3a8a;
+            padding-left: 12px;
+        }
+        .bg-gradient-custom {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print p-4 text-center bg-gray-800 text-white text-sm">
+        ブラウザの印刷設定（Ctrl+P）で「背景のグラフィック」をオンにして印刷してください。
+    </div>
+
+    <div class="page shadow-2xl">
+        <!-- Header -->
+        <header class="flex justify-between items-start mb-4">
+            <div>
+                <p class="text-blue-700 font-bold text-[10px] tracking-widest mb-1">2026 SPONSORSHIP PROPOSAL</p>
+                <h1 class="text-2xl font-black text-slate-900 leading-tight">
+                    としまキッズ<span class="text-orange-500">アイデアソン</span>
+                </h1>
+                <p class="text-sm font-bold text-slate-600 mt-0.5">きみのアイデアが、まちを変える。</p>
+            </div>
+            <div class="text-right">
+                <div class="inline-block bg-blue-50 border border-blue-200 p-2 rounded text-[10px] text-blue-800 leading-tight">
+                    主催：としまキッズアイデアソン実行委員会<br>
+                    運営事務局：株式会社SSAA
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Concept -->
+        <section class="bg-gradient-custom text-white p-4 rounded-xl mb-4">
+            <h2 class="text-lg font-bold mb-1.5">「としまの未来は、子どもたちがつくる。」</h2>
+            <p class="text-[11px] leading-relaxed opacity-90">
+                アイデアを出すだけで終わらせない。自分の考えが、街の「サービス」や「商品」として実装される原体験を、豊島区の子どもたちへ。プロの指導と地域企業の協力による本気の実装プログラムです。
+            </p>
+        </section>
+
+        <!-- Three Pillars -->
+        <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="bg-slate-50 p-3 rounded-lg border-t-4 border-blue-600">
+                <h3 class="font-bold text-blue-900 text-[11px] mb-1 text-center">本気の実装</h3>
+                <p class="text-[9px] text-slate-600 leading-tight">優秀なアイデアは、地域の店舗での商品化や区内施設でのサービス導入など、実際に街の中で形にします。</p>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-lg border-t-4 border-orange-500">
+                <h3 class="font-bold text-orange-600 text-[11px] mb-1 text-center">プロの指導</h3>
+                <p class="text-[9px] text-slate-600 leading-tight">各分野のプロがメンターとなり、「誰が喜ぶ？」「いくらかかる？」というビジネスの仕組みをレクチャーします。</p>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-lg border-t-4 border-green-600">
+                <h3 class="font-bold text-green-700 text-[11px] mb-1 text-center">地域共創</h3>
+                <p class="text-[9px] text-slate-600 leading-tight">豊島区のリアルな地域課題をテーマに設定。子どもたちの柔軟な視点が、大人が気づかない解決策を生みます。</p>
+            </div>
+        </div>
+
+        <!-- Implementation Scheme -->
+        <section class="mb-4">
+            <h3 class="accent-border font-bold text-slate-800 mb-2 text-xs">実施スキームイメージ</h3>
+            <div class="flex justify-between items-start gap-2">
+                <div class="flex-1 bg-white border border-slate-200 p-2 rounded text-center relative">
+                    <span class="text-[9px] font-bold text-blue-600 block mb-1">01. 課題提示</span>
+                    <p class="text-[10px] font-bold">地域の「お題」発見</p>
+                </div>
+                <div class="flex items-center pt-3 text-slate-300">▶</div>
+                <div class="flex-1 bg-white border border-slate-200 p-2 rounded text-center">
+                    <span class="text-[9px] font-bold text-blue-600 block mb-1">02. 開発</span>
+                    <p class="text-[10px] font-bold">子どもたちの開発</p>
+                </div>
+                <div class="flex items-center pt-3 text-slate-300">▶</div>
+                <div class="flex-1 bg-white border border-slate-200 p-2 rounded text-center">
+                    <span class="text-[9px] font-bold text-blue-600 block mb-1">03. 審査</span>
+                    <p class="text-[10px] font-bold">企業・区による選定</p>
+                </div>
+                <div class="flex items-center pt-3 text-slate-300">▶</div>
+                <div class="flex-1 bg-blue-600 border border-blue-600 p-2 rounded text-center text-white">
+                    <span class="text-[9px] font-bold block mb-1">04. 実装</span>
+                    <p class="text-[10px] font-bold">豊島区内で実装</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section class="mb-6">
+            <h3 class="accent-border font-bold text-slate-800 mb-2 text-xs">スケジュール（予定）</h3>
+            <div class="bg-slate-50 p-3 rounded-lg">
+                <table class="w-full text-[10px] border-collapse">
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <td class="py-1.5 font-bold text-blue-700 w-1/4">2026年2月上旬〜</td>
+                            <td class="py-1.5 text-slate-800 tracking-tight">情報解禁＆課題発見期間</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1.5 font-bold text-blue-700">2/27（金）〜 3/29（日）</td>
+                            <td class="py-1.5 text-slate-800 tracking-tight">エントリーシート提出期限</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1.5 font-bold text-blue-700">3/31（火）</td>
+                            <td class="py-1.5 text-slate-800 tracking-tight">書類審査〜結果発表</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1.5 font-bold text-blue-700">4/3（金）※予備日4/4(土)</td>
+                            <td class="py-1.5 text-slate-800 tracking-tight">選抜チーム メンター指導〜ブラッシュアップ期間〜</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1.5 font-bold text-orange-500 text-xs">4/18（土）</td>
+                            <td class="py-1.5 text-slate-900 font-bold text-xs">最終審査プレゼンテーション</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sponsorship Table -->
+        <section class="mb-4">
+            <h3 class="accent-border font-bold text-slate-800 mb-2 text-xs">ご協賛プランのご案内</h3>
+            <table class="w-full text-[10px] border-collapse">
+                <thead>
+                    <tr class="bg-slate-100 border-y border-slate-200">
+                        <th class="py-1.5 px-3 text-left w-1/4">プラン名</th>
+                        <th class="py-1.5 px-3 text-left w-1/5">金額</th>
+                        <th class="py-1.5 px-3 text-left">主な特典・提供内容</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <tr>
+                        <td class="py-2 px-3 font-bold">スタンダード</td>
+                        <td class="py-2 px-3">5万円 / 1口</td>
+                        <td class="py-2 px-3 text-slate-600 leading-tight">広報物へのロゴ掲載、当日会場での企業紹介。参加者（子ども）の負担軽減に充てられます。</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-3 font-bold">テーマ・パートナー</td>
+                        <td class="py-2 px-3">10万円〜</td>
+                        <td class="py-2 px-3 text-slate-600 leading-tight">アイデアソンの「課題テーマ」提供、審査員としての参加、など可能な限りご要望にお答えいたします。</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-3 font-bold">開催・パートナー</td>
+                        <td class="py-2 px-3">応相談</td>
+                        <td class="py-2 px-3 text-slate-600 leading-tight">会場提供、備品提供、当日配布ノベルティ、子どもたちへの景品提供など。物品によるご支援。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Expected Impact -->
+        <section class="bg-slate-50 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-xs text-blue-900 mb-2">地域企業様へのメリット</h4>
+            <ul class="text-[10px] space-y-1.5 text-slate-700">
+                <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">●</span> 豊島区内の子育て世代・ファミリー層への認知向上</li>
+                <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">●</span> 「教育・まちづくり」へのCSR/SDGs貢献の可視化</li>
+                <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">●</span> 子どもの柔軟な視点による新規事業・課題解決のヒント</li>
+                <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">●</span> 「自分のアイデアで誰かが喜んでくれた」という成功体験を共に創出する地域貢献</li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-slate-200 pt-4">
+            <div class="flex justify-between items-end">
+                <div class="text-[9px] text-slate-600">
+                    <p class="font-bold text-slate-800 text-[10px] mb-0.5">株式会社SSAA（運営事務局）</p>
+                    <p>所在地：豊島区雑司が谷3-3-14 浅野コーポラス102</p>
+                    <p>Web：https://www.ssaa.ooo</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[9px] text-slate-500 mb-0.5">お問い合わせ・お申し込み</p>
+                    <p class="text-lg font-black text-blue-700">ss@ssaa.ooo</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
