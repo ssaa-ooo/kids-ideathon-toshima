@@ -12,7 +12,7 @@
     <meta property="og:title" content="としまキッズアイデアソン｜協賛企業募集のご案内">
     <meta property="og:description" content="豊島区の未来を子どもたちがつくる。社会実装型アイデアソン「としまキッズアイデアソン」のパートナー企業を募集しています。">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ssaa-ooo.github.io/kids-ideathon-toshima/support.html">
+    <meta property="og:url" content="https://ssaa-ooo.github.io/kids-ideathon-toshima/support">
     
     <!-- OGP画像 -->
     <meta property="og:image" content="https://ssaa-ooo.github.io/kids-ideathon-toshima/toshima_kids_ideathon.jpg">
@@ -47,16 +47,19 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header / Navigation -->
-    <header class="bg-white border-b sticky top-0 z-50 no-print">
-        <div class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-            <div class="text-xl md:text-2xl font-black tracking-tighter text-blue-600 leading-none">
-                <a href="index.html">としまキッズ<span class="text-orange-500">アイデアソン</span></a>
-            </div>
+    <!-- Header / Navigation (index.htmlと完全に統一) -->
+    <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50 no-print">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-black tracking-tighter text-blue-600 leading-none">
+                としまキッズ<span class="text-orange-500">アイデアソン</span>
+            </a>
             <nav class="hidden md:flex space-x-6">
-                <a href="index.html" class="text-sm font-bold text-gray-600 hover:text-blue-600">公式サイトへ</a>
+                <a href="index.html#about" class="text-sm font-bold text-gray-600 hover:text-blue-600">プロジェクトとは</a>
+                <a href="index.html#workflow" class="text-sm font-bold text-gray-600 hover:text-blue-600">挑戦の流れ</a>
+                <a href="index.html#schedule" class="text-sm font-bold text-gray-600 hover:text-blue-600">スケジュール</a>
+                <a href="support.html" class="text-sm font-bold text-blue-600">企業の皆様へ</a>
             </nav>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc3YCT2om7tyRHcaBbUOmZIRSYe21ueuWt7O4Yigbv-90yiWw/viewform?usp=publish-editor" target="_blank" class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-full text-xs md:text-base font-bold hover:bg-blue-700 transition">お問い合わせ</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc3YCT2om7tyRHcaBbUOmZIRSYe21ueuWt7O4Yigbv-90yiWw/viewform?usp=publish-editor" target="_blank" class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-bold shadow-lg hover:bg-blue-700 transition">お問い合わせ</a>
         </div>
     </header>
 
@@ -104,7 +107,7 @@
                 </div>
                 <div class="bg-gray-50 p-6 md:p-8 rounded-3xl border border-gray-100">
                     <h3 class="text-lg md:text-xl font-bold mb-4 text-blue-600">プログラムの独自性</h3>
-                    <ul class="space-y-4 text-slate-800">
+                    <ul class="space-y-4">
                         <li class="flex items-start">
                             <span class="text-green-500 mr-2">✔</span>
                             <span class="text-sm md:text-base text-slate-800"><strong>ただの体験に終わらない「本気の実装」</strong><br><small class="text-xs md:text-sm text-slate-500">優秀案は店舗メニューや公園活用イベントとして実際に形にします</small></span>
@@ -133,12 +136,12 @@
                     <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">地域ブランディング</h3>
                     <p class="text-blue-100 text-xs md:text-sm">次世代を応援する企業として、豊島区内の子育て世代や地域住民への認知・イメージ向上が図れます。</p>
                 </div>
-                <div class="bg-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-sm">
+                <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm">
                     <div class="text-3xl md:text-4xl mb-4">🌱</div>
                     <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">CSR・SDGsへの寄与</h3>
                     <p class="text-blue-100 text-xs md:text-sm">「質の高い教育」「住み続けられるまちづくり」など、具体的なSDGs活動として実績化が可能です。</p>
                 </div>
-                <div class="bg-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-sm">
+                <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm">
                     <div class="text-3xl md:text-4xl mb-4">💡</div>
                     <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">新発想の獲得</h3>
                     <p class="text-blue-100 text-xs md:text-sm">子どもたちの柔軟な視点から、自社の事業や地域課題に対する全く新しい解決策のヒントが得られます。</p>
@@ -200,8 +203,8 @@
                     <div class="relative flex items-start">
                         <div class="absolute left-4 w-4 h-4 bg-blue-600 rounded-full -translate-x-1/2 border-4 border-white shadow-sm z-10"></div>
                         <div class="pl-10 grid grid-cols-1 md:grid-cols-3 w-full items-baseline">
-                            <div class="text-blue-600 font-bold text-base md:text-lg md:col-span-1">2/27（金）〜 3/29（日）</div>
-                            <div class="text-slate-800 font-bold text-base md:text-lg md:col-span-2 text-[15px] md:text-lg leading-tight">エントリーシート提出期限</div>
+                            <div class="text-blue-600 font-bold text-base md:text-lg md:col-span-1 text-xs md:text-lg">2/27（金）〜 3/29（日）</div>
+                            <div class="text-slate-800 font-bold text-base md:text-lg md:col-span-2 text-[15px] md:text-lg leading-tight text-slate-800">エントリーシート提出期限</div>
                         </div>
                     </div>
                     <div class="relative flex items-start">
@@ -214,7 +217,7 @@
                     <div class="relative flex items-start">
                         <div class="absolute left-4 w-4 h-4 bg-blue-600 rounded-full -translate-x-1/2 border-4 border-white shadow-sm z-10"></div>
                         <div class="pl-10 grid grid-cols-1 md:grid-cols-3 w-full items-baseline">
-                            <div class="text-blue-600 font-bold text-base md:text-lg md:col-span-1">4/3（金）<span class="text-xs md:text-sm block md:inline">※予備日4/4(土)</span></div>
+                            <div class="text-blue-600 font-bold text-base md:text-lg md:col-span-1">4/3（金）<span class="text-xs md:text-sm block md:inline text-slate-400">※予備日4/4(土)</span></div>
                             <div class="text-slate-800 font-bold text-base md:text-lg md:col-span-2 text-[15px] md:text-lg leading-tight">選抜チーム メンター指導 〜ブラッシュアップ期間〜</div>
                         </div>
                     </div>
@@ -258,7 +261,7 @@
                         <div class="text-right text-slate-900"><span class="text-lg md:text-xl font-bold italic">応相談</span></div>
                     </div>
                     <ul class="space-y-3 md:space-y-4 text-gray-600 mb-8 md:mb-10 text-sm md:text-base">
-                        <li class="flex items-center font-bold text-gray-800"><span class="text-orange-500 mr-2">★</span> アイデアソンの「お題」を提示</li>
+                        <li class="flex items-center font-bold text-gray-800"><span class="text-orange-500 mr-2 text-lg">★</span> アイデアソンの「お題」を提示</li>
                         <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> 審査員としての参加</li>
                         <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> 優秀アイデアの独占実装検討権</li>
                         <li class="flex items-center"><span class="text-blue-500 mr-2">●</span> プレスリリースでの連名発表</li>
@@ -275,17 +278,16 @@
         <div class="container mx-auto max-w-5xl">
             <h2 class="text-xl md:text-2xl font-bold mb-8 text-white">運営事務局・お問い合わせ</h2>
             <div class="space-y-2 text-gray-300 text-xs md:text-sm mb-12">
-                <p><strong>主催：</strong> としまキッズアイデアソン実行委員会</p>
-                <p><strong>運営：</strong> 株式会社SSAA</p>
-                <p><strong>Web：</strong> <a href="https://www.ssaa.ooo" class="underline hover:text-blue-400 transition text-blue-400">https://www.ssaa.ooo</a></p>
+                <p><strong>主催：</strong> 豊島区（区民部 地域区民ひろば課 事業グループ）</p>
+                <p><strong>運営：</strong> 株式会社SSAA（<a href="https://www.ssaa.ooo" class="underline hover:text-blue-400 transition text-blue-400">https://www.ssaa.ooo</a>）</p>
             </div>
             <div class="flex flex-col items-center">
                 <p class="text-xs md:text-sm text-gray-400 mb-2 uppercase tracking-widest">Inquiry</p>
-                <p class="text-2xl md:text-3xl font-black mb-8 text-blue-400">toshima-ideathon@ssaa.ooo</p>
+                <p class="text-2xl md:text-3xl font-black mb-8 text-blue-400 tracking-tighter">toshima-ideathon@ssaa.ooo</p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSc3YCT2om7tyRHcaBbUOmZIRSYe21ueuWt7O4Yigbv-90yiWw/viewform?usp=publish-editor" target="_blank" class="inline-block bg-white text-gray-900 px-10 py-4 rounded-full font-bold text-sm md:text-base hover:bg-blue-100 transition shadow-xl">フォームで問い合わせる</a>
             </div>
-            <div class="text-center text-gray-600 text-[10px] md:text-sm mt-16 pt-8 border-t border-gray-800">
-                &copy; としまキッズアイデアソン実行委員会 / SSAA Inc. All Rights Reserved.
+            <div class="text-center text-gray-600 text-[10px] md:text-sm mt-16 pt-8 border-t border-gray-800 tracking-widest">
+                &copy; Toshima Kids Ideathon Executive Committee / SSAA Inc. All Rights Reserved.
             </div>
         </div>
     </footer>
