@@ -49,25 +49,64 @@
         .break-phrase {
             display: inline-block;
         }
+        /* モバイルメニューの表示切り替え */
+        #mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #mobile-menu-content.active {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="antialiased text-slate-800">
 
-    <!-- Navigation -->
+    <!-- Header / Navigation -->
     <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center text-slate-800">
-            <a href="index.html" class="text-base md:text-xl font-black tracking-tighter text-blue-600 leading-none">
+            <a href="index.html" class="text-base md:text-xl font-black tracking-tighter text-blue-600 leading-none z-50">
                 としまキッズ<span class="text-orange-500">アイデアソン</span>
             </a>
-            <nav class="hidden md:flex space-x-6 text-slate-800">
-                <a href="#about" class="text-sm font-bold text-gray-600 hover:text-blue-600">どんなイベント？</a>
+            
+            <!-- PC Navigation -->
+            <nav class="hidden lg:flex space-x-6">
+                <a href="#about" class="text-sm font-bold text-gray-600 hover:text-blue-600">プロジェクトとは</a>
                 <a href="#workflow" class="text-sm font-bold text-gray-600 hover:text-blue-600">挑戦の流れ</a>
-                <a href="#schedule" class="text-sm font-bold text-gray-600 hover:text-blue-600">いつやるの？</a>
+                <a href="#schedule" class="text-sm font-bold text-gray-600 hover:text-blue-600">スケジュール</a>
                 <a href="support.html" class="text-sm font-bold text-blue-600 hover:text-blue-800">企業の皆様へ</a>
             </nav>
-            <a href="explore.html" class="bg-orange-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[10px] md:text-sm font-bold shadow-lg hover:bg-orange-600 transition">街を探検してみる</a>
+
+            <div class="flex items-center gap-3">
+                <a href="explore.html" class="hidden sm:block bg-orange-500 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-lg hover:bg-orange-600 transition text-white">街を探検してみる</a>
+                
+                <!-- Hamburger Button -->
+                <button id="menu-btn" class="lg:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 z-50 focus:outline-none">
+                    <span class="w-6 h-0.5 bg-blue-600 transition-transform duration-300"></span>
+                    <span class="w-6 h-0.5 bg-blue-600 transition-opacity duration-300"></span>
+                    <span class="w-6 h-0.5 bg-blue-600 transition-transform duration-300"></span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden text-slate-800">
+        <div id="mobile-menu-content" class="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col p-8">
+            <div class="mt-12 space-y-6">
+                <a href="index.html" class="block text-lg font-black text-slate-800 border-b pb-4">トップページ</a>
+                <a href="#about" class="mobile-nav-link block text-lg font-bold text-slate-600">プロジェクトとは</a>
+                <a href="#workflow" class="mobile-nav-link block text-lg font-bold text-slate-600">挑戦の流れ</a>
+                <a href="#schedule" class="mobile-nav-link block text-lg font-bold text-slate-600">スケジュール</a>
+                <a href="support.html" class="mobile-nav-link block text-lg font-bold text-blue-600">企業の皆様へ</a>
+                <a href="explore.html" class="mobile-nav-link block text-lg font-bold text-orange-500 text-orange-500">街を探検してみる</a>
+            </div>
+            
+            <div class="mt-auto border-t pt-8">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Official Contact</p>
+                <a href="mailto:toshima-ideathon@ssaa.ooo" class="text-blue-600 font-black text-sm">toshima-ideathon@ssaa.ooo</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative overflow-hidden py-12 md:py-32">
@@ -83,7 +122,7 @@
                 <span class="break-phrase text-gradient">豊島区をアップデート！</span>
             </h1>
             <p class="text-base md:text-2xl text-gray-700 mb-10 md:mb-12 leading-relaxed font-medium">
-                「こんなのがあったらいいな」だけで終わらせない。<br class="hidden md:block">
+                「こんなのがあったらいいな」だけで終わらせない。<br class="hidden md:block text-slate-800">
                 プロと一緒に、本物の街で自分の考えを形にする大冒険！
             </p>
             
@@ -97,39 +136,39 @@
     <section id="about" class="py-12 md:py-20 bg-white rounded-t-[2.5rem] md:rounded-t-[5rem] shadow-inner">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-2xl md:text-5xl font-black mb-4 text-slate-900">としまキッズアイデアソンって？</h2>
+                <h2 class="text-2xl md:text-5xl font-black mb-4 text-slate-900 text-slate-900">としまキッズアイデアソンって？</h2>
                 <div class="w-16 md:w-24 h-1.5 md:h-2 bg-blue-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center text-slate-800">
                 <div class="space-y-6">
                     <p class="text-lg md:text-xl font-bold text-blue-700 leading-snug">
-                        <span class="break-phrase">「お仕事体験」とはちょっと違う、</span><br class="hidden md:block">
+                        <span class="break-phrase">「お仕事体験」とはちょっと違う、</span><br class="hidden md:block text-slate-800">
                         <span class="break-phrase text-slate-800">本気で「街を変える」プロジェクトです。</span>
                     </p>
-                    <p class="text-sm md:text-base text-gray-600 leading-relaxed">
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed text-slate-600">
                         豊島区にある「お店」や「公園」が困っていること（課題）を、みんなの柔軟な頭で解決しよう！<br><br>
-                        優秀なアイデアは、プロのデザイナーやコンサルタントがサポートして、<strong class="text-slate-800">実際にお店で新メニューとして出されたり、公園の新しいサービスになったりします。</strong>
+                        優秀なアイデアは、プロのデザイナーやコンサルタントがサポートして、<strong class="text-slate-800 text-slate-800">実際にお店で新メニューとして出されたり、公園の新しいサービスになったりします。</strong>
                     </p>
-                    <div class="flex gap-3 md:gap-4">
+                    <div class="flex gap-3 md:gap-4 text-slate-800">
                         <div class="bg-orange-50 p-3 md:p-4 rounded-2xl border border-orange-100 flex-1 text-center">
                             <span class="block text-xl md:text-2xl mb-1">🍰</span>
-                            <span class="font-bold text-[10px] md:text-sm">お店で販売</span>
+                            <span class="font-bold text-[10px] md:text-sm text-slate-800 text-slate-800">お店で販売</span>
                         </div>
-                        <div class="bg-blue-50 p-3 md:p-4 rounded-2xl border border-blue-100 flex-1 text-center">
-                            <span class="block text-xl md:text-2xl mb-1 text-slate-800">⛲</span>
-                            <span class="font-bold text-[10px] md:text-sm">公園で実施</span>
+                        <div class="bg-blue-50 p-3 md:p-4 rounded-2xl border border-blue-100 flex-1 text-center text-slate-800">
+                            <span class="block text-xl md:text-2xl mb-1">⛲</span>
+                            <span class="font-bold text-[10px] md:text-sm text-slate-800 text-slate-800">公園で実施</span>
                         </div>
-                        <div class="bg-green-50 p-3 md:p-4 rounded-2xl border border-green-100 flex-1 text-center">
-                            <span class="block text-xl md:text-2xl mb-1 text-slate-800">📱</span>
-                            <span class="font-bold text-[10px] md:text-sm">アプリで形に</span>
+                        <div class="bg-green-50 p-3 md:p-4 rounded-2xl border border-green-100 flex-1 text-center text-slate-800 text-slate-800">
+                            <span class="block text-xl md:text-2xl mb-1">📱</span>
+                            <span class="font-bold text-[10px] md:text-sm text-slate-800 text-slate-800">アプリで形に</span>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 p-6 md:p-8 rounded-[2.5rem] border border-gray-100 relative">
-                    <div class="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-yellow-400 text-white w-12 md:w-16 h-12 md:h-16 rounded-full flex items-center justify-center font-black text-base md:text-xl shadow-lg transform rotate-12">特長</div>
+                <div class="bg-gray-50 p-6 md:p-8 rounded-[2.5rem] border border-gray-100 relative text-slate-800">
+                    <div class="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-yellow-400 text-white w-12 md:w-16 h-12 md:h-16 rounded-full flex items-center justify-center font-black text-base md:text-xl shadow-lg transform rotate-12 text-white">特長</div>
                     <h3 class="text-lg md:text-xl font-bold mb-4 md:mb-6 text-slate-800">ここがすごい！</h3>
-                    <ul class="space-y-4 text-sm md:text-base">
+                    <ul class="space-y-4 text-sm md:text-base text-slate-800">
                         <li class="flex items-center gap-3">
                             <span class="flex-shrink-0 w-6 md:w-8 h-6 md:h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs md:text-sm text-blue-600">1</span>
                             <span class="font-bold">プロのメンターがサポート！</span>
@@ -139,7 +178,7 @@
                             <span class="font-bold">参加費は0円（むりょう）！</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <span class="flex-shrink-0 w-6 md:w-8 h-6 md:h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs md:text-sm text-blue-600">3</span>
+                            <span class="flex-shrink-0 w-6 md:w-8 h-6 md:h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs md:text-sm text-blue-600 text-blue-600">3</span>
                             <span class="font-bold">自分のアイデアが街に残る！</span>
                         </li>
                     </ul>
@@ -151,32 +190,31 @@
     <!-- Workflow Section -->
     <section id="workflow" class="py-12 md:py-24 px-6 text-slate-800">
         <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-2xl md:text-5xl font-black mb-3 text-slate-900">挑戦のワークフロー</h2>
+            <div class="text-center mb-12 md:mb-16 text-slate-800 text-slate-800 text-slate-800">
+                <h2 class="text-2xl md:text-5xl font-black mb-3 text-slate-900 text-slate-900 text-slate-900">挑戦のワークフロー</h2>
                 <p class="text-xs md:text-sm text-gray-500 font-medium italic">Your Creative Journey</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 relative">
-                <!-- Step Cards -->
-                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-blue-400 text-center relative z-10">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-400 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white">01</div>
-                    <h3 class="font-black text-base md:text-lg mb-3 text-blue-800">課題（お題）<br>を見つけよう！</h3>
-                    <p class="text-[13px] md:text-sm text-gray-500 leading-relaxed">まずは豊島区の街を観察！「もっとこうなればいいな」を探します。</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 relative text-slate-800">
+                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-blue-400 text-center relative z-10 text-slate-800">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-400 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white text-white">01</div>
+                    <h3 class="font-black text-base md:text-lg mb-3 text-blue-800 text-blue-800">課題（お題）<br>を見つけよう！</h3>
+                    <p class="text-[13px] md:text-sm text-gray-500 leading-relaxed text-slate-500 text-slate-500">まずは豊島区の街を観察！「もっとこうなればいいな」を探します。</p>
                 </div>
-                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-blue-600 text-center relative z-10">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white">02</div>
-                    <h3 class="font-black text-base md:text-lg mb-3 text-blue-900">エントリー<br>しよう！</h3>
-                    <p class="text-[13px] md:text-sm text-gray-500 leading-relaxed">アイデアをエントリーシートに書いて提出。一人でもチームでもOK！</p>
+                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-blue-600 text-center relative z-10 text-slate-800">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white text-white">02</div>
+                    <h3 class="font-black text-base md:text-lg mb-3 text-blue-900 text-blue-900 text-blue-900">エントリー<br>しよう！</h3>
+                    <p class="text-[13px] md:text-sm text-gray-500 leading-relaxed text-slate-500 text-slate-500 text-slate-500">自分のアイデアをエントリーシートに書いて提出。一人でもチームでもOK！</p>
                 </div>
-                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-orange-400 text-center relative z-10">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-400 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white">03</div>
-                    <h3 class="font-black text-base md:text-lg mb-3 text-orange-800">プロと磨き<br>あげよう！</h3>
-                    <p class="text-[13px] md:text-sm text-gray-500 leading-relaxed">選ばれたチームにはプロのメンターがつくよ。もっと面白く進化させよう！</p>
+                <div class="step-card bg-white p-6 md:p-8 rounded-3xl shadow-xl border-b-8 border-orange-400 text-center relative z-10 text-slate-800">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-400 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-white text-white">03</div>
+                    <h3 class="font-black text-lg mb-4 text-orange-800 text-orange-800 text-orange-800 text-orange-800">プロと磨き<br>あげよう！</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed text-slate-500 text-slate-500 text-slate-500 text-slate-500">選ばれたチームにはプロのメンターがつくよ。もっと面白いアイデアに進化させよう！</p>
                 </div>
-                <div class="step-card bg-orange-500 p-6 md:p-8 rounded-3xl shadow-2xl border-b-8 border-orange-700 text-center text-white relative z-10">
-                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-orange-500">GOAL</div>
-                    <h3 class="font-black text-base md:text-lg mb-3 text-white text-white">最終発表会＆<br>街で実装！</h3>
-                    <p class="text-[13px] md:text-sm text-orange-50 leading-relaxed font-medium">みんなの前でプレゼン！優秀な案は、本当に街の一部になるよ！</p>
+                <div class="step-card bg-orange-500 p-6 md:p-8 rounded-3xl shadow-2xl border-b-8 border-orange-700 text-center text-white relative z-10 text-white text-white">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 font-black text-lg md:text-xl shadow-md text-orange-500 text-orange-500">GOAL</div>
+                    <h3 class="font-black text-base md:text-lg mb-3 text-white text-white text-white text-white">最終発表会＆<br>街で実装！</h3>
+                    <p class="text-[13px] md:text-sm text-orange-50 leading-relaxed font-medium text-orange-50 text-orange-50 text-orange-50 text-orange-50">みんなの前でプレゼン！優秀な案は、本当に街の一部になるよ！</p>
                 </div>
             </div>
         </div>
@@ -184,57 +222,55 @@
 
     <!-- Schedule Section -->
     <section id="schedule" class="py-12 md:py-24 px-4 bg-slate-900 text-white rounded-[2.5rem] md:rounded-[5rem] text-white">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-2xl md:text-5xl font-black mb-10 md:mb-16">募集スケジュール</h2>
+        <div class="container mx-auto max-w-4xl text-center text-white">
+            <h2 class="text-2xl md:text-5xl font-black mb-10 md:mb-16 text-white text-white">募集スケジュール</h2>
             
-            <div class="space-y-4 md:space-y-6 max-w-2xl mx-auto text-left">
-                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10">
-                    <div class="flex-shrink-0 text-center text-blue-400 font-black">
+            <div class="space-y-4 md:space-y-6 max-w-2xl mx-auto text-left text-white text-white">
+                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10 text-white text-white">
+                    <div class="flex-shrink-0 text-center text-blue-400 font-black text-blue-400 text-blue-400 text-blue-400">
                         <span class="block text-base md:text-lg">2月</span>
                         <span class="text-[10px] md:text-xs font-bold text-blue-300">上旬〜</span>
                     </div>
                     <div class="flex-grow">
-                        <p class="font-black text-sm md:text-lg">情報解禁＆課題発見期間</p>
-                        <p class="text-slate-400 text-[10px] md:text-xs">ホームページでお題やヒントを公開するよ。</p>
+                        <p class="font-black text-sm md:text-lg text-white">情報解禁＆課題発見期間</p>
+                        <p class="text-slate-400 text-[10px] md:text-xs text-slate-400 text-slate-400 text-slate-400">ホームページでお題やヒントを公開するよ。</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10">
-                    <div class="flex-shrink-0 text-center text-blue-400 font-black">
+                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10 text-white">
+                    <div class="flex-shrink-0 text-center text-blue-400 font-black text-blue-400 text-blue-400 text-blue-400 text-blue-400">
                         <span class="block text-base md:text-lg">2/27</span>
-                        <span class="text-[10px] md:text-xs font-bold text-blue-300">〜3/29</span>
+                        <span class="text-[10px] md:text-xs font-bold text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300">〜3/29</span>
                     </div>
                     <div class="flex-grow">
-                        <p class="font-black text-sm md:text-lg leading-tight">エントリーシート提出期限</p>
-                        <p class="text-slate-400 text-[10px] md:text-xs">2/27（金）〜 3/29（日）まで受付！</p>
+                        <p class="font-black text-sm md:text-lg leading-tight text-white">2/27（金）〜 3/29（日）<br>エントリーシート提出期限</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10">
-                    <div class="flex-shrink-0 text-center text-blue-400 font-black">
+                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10 text-white">
+                    <div class="flex-shrink-0 text-center text-blue-400 font-black text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400">
                         <span class="block text-base md:text-lg">3/31</span>
-                        <span class="text-[10px] md:text-xs font-bold text-blue-300">（火）</span>
+                        <span class="text-[10px] md:text-xs font-bold text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300">（火）</span>
                     </div>
-                    <div class="flex-grow">
-                        <p class="font-black text-sm md:text-lg">書類審査〜結果発表</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10">
-                    <div class="flex-shrink-0 text-center text-blue-400 font-black">
-                        <span class="block text-base md:text-lg">4/3</span>
-                        <span class="text-[10px] md:text-xs font-bold text-blue-300">（金）</span>
-                    </div>
-                    <div class="flex-grow">
-                        <p class="font-black text-sm md:text-lg">選抜チーム メンター指導</p>
-                        <p class="text-slate-400 text-[10px] md:text-xs">※予備日4/4(土)</p>
+                    <div class="flex-grow text-white text-white text-white text-white text-white text-white">
+                        <p class="font-black text-sm md:text-lg text-white text-white">書類審査〜結果発表</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 md:gap-6 p-6 md:p-8 bg-orange-500 rounded-3xl border-2 md:border-4 border-orange-300 shadow-2xl">
-                    <div class="flex-shrink-0 text-center font-black">
-                        <span class="block text-xl md:text-2xl">4/18</span>
-                        <span class="text-[10px] md:text-xs font-bold text-orange-200">（土）</span>
+                <div class="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-white/10 rounded-2xl border border-white/10 text-white">
+                    <div class="flex-shrink-0 text-center text-blue-400 font-black text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400">
+                        <span class="block text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400">4/3</span>
+                        <span class="text-[10px] md:text-xs font-bold text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300 text-blue-300">（金）</span>
                     </div>
-                    <div class="flex-grow">
-                        <p class="font-black text-base md:text-xl">最終審査プレゼンテーション</p>
-                        <p class="text-orange-100 text-[10px] md:text-xs font-bold">みんなのアイデアが認められる最高の一日！</p>
+                    <div class="flex-grow text-white text-white text-white text-white text-white text-white text-white">
+                        <p class="font-black text-sm md:text-lg text-white">選抜チーム メンター指導<br><span class="text-xs text-slate-400 text-slate-400 text-slate-400 text-slate-400 text-slate-400 text-slate-400">※予備日4/4(土)</span></p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 md:gap-6 p-6 md:p-8 bg-orange-500 rounded-3xl border-2 md:border-4 border-orange-300 shadow-2xl text-white">
+                    <div class="flex-shrink-0 text-center font-black text-white text-white text-white">
+                        <span class="block text-xl md:text-2xl text-white text-white text-white text-white">4/18</span>
+                        <span class="text-[10px] md:text-xs font-bold text-orange-200 text-orange-200 text-orange-200 text-orange-200 text-orange-200 text-orange-200 text-orange-200 text-orange-200">（土）</span>
+                    </div>
+                    <div class="flex-grow text-white text-white text-white text-white text-white text-white text-white">
+                        <p class="font-black text-base md:text-xl text-white text-white">最終審査プレゼンテーション</p>
+                        <p class="text-orange-100 text-[10px] md:text-xs font-bold text-orange-100 text-orange-100 text-orange-100 text-orange-100 text-orange-100 text-orange-100">みんなのアイデアが認められる最高の一日！</p>
                     </div>
                 </div>
             </div>
@@ -243,88 +279,103 @@
 
     <!-- For Parents FAQ -->
     <section class="py-12 md:py-24 px-6 bg-white text-slate-800">
-        <div class="container mx-auto max-w-3xl">
-            <h2 class="text-2xl md:text-4xl font-black mb-10 md:mb-12 text-center">保護者の皆様へ</h2>
-            <div class="space-y-6">
-                <div class="bg-slate-50 p-6 md:p-8 rounded-3xl">
-                    <h3 class="font-bold text-base md:text-lg mb-3 flex items-center text-blue-700">
-                        <span class="w-5 md:w-6 h-5 md:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] md:text-xs mr-3">Q</span>
-                        どのような学びが得られますか？
-                    </h3>
-                    <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8 md:pl-9">
-                        単なる想像力だけでなく、ターゲット、コスト、マーケティングといったビジネスの基礎を遊びながら学ぶ「アントレプレナーシップ教育」の側面を持っています。
-                    </p>
+        <div class="container mx-auto max-w-3xl text-slate-800 text-slate-800">
+            <h2 class="text-2xl md:text-4xl font-black mb-10 md:mb-12 text-center text-slate-800 text-slate-800">保護者の皆様へ</h2>
+            <div class="space-y-6 text-slate-800 text-slate-800">
+                <div class="bg-slate-50 p-6 md:p-8 rounded-3xl text-slate-800 text-slate-800">
+                    <h3 class="font-bold text-base md:text-lg mb-3 flex items-center text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700"><span class="w-5 md:w-6 h-5 md:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] md:text-xs mr-3 text-white text-white text-white">Q</span>どのような学びが得られますか？</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8 md:pl-9 text-slate-600 text-slate-600 text-slate-600">単なる想像力だけでなく、ターゲット、コスト、マーケティングといったビジネスの基礎を遊びながら学ぶ「アントレプレナーシップ教育」の側面を持っています。また、自分のアイデアが社会実装されることで、圧倒的な自己肯定感と地域への愛着を育みます。</p>
                 </div>
-                <div class="bg-slate-50 p-6 md:p-8 rounded-3xl">
-                    <h3 class="font-bold text-base md:text-lg mb-3 flex items-center text-blue-700">
-                        <span class="w-5 md:w-6 h-5 md:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] md:text-xs mr-3">Q</span>
-                        参加に必要なスキルはありますか？
-                    </h3>
-                    <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8 md:pl-9">
-                        特別なスキルは必要ありません。「やってみたい！」という気持ちがあれば十分です。プロのメンターが丁寧に指導いたします。
-                    </p>
+                <div class="bg-slate-50 p-6 md:p-8 rounded-3xl text-slate-800">
+                    <h3 class="font-bold text-base md:text-lg mb-3 flex items-center text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700 text-blue-700"><span class="w-5 md:w-6 h-5 md:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] md:text-xs mr-3 text-white text-white text-white text-white text-white">Q</span>参加に必要なスキルはありますか？</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8 md:pl-9 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600">特別なスキルは必要ありません。「やってみたい！」「もっとこうしたい！」という気持ちがあれば十分です。プレゼンテーションのやり方などは、プロのメンターが丁寧に指導いたします。</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Action Section -->
-    <section class="py-16 md:py-20 px-6 bg-orange-500 text-white text-center relative overflow-hidden">
+    <section class="py-16 md:py-20 px-6 bg-orange-500 text-white text-center relative overflow-hidden text-white text-white">
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
-        <div class="container mx-auto max-w-4xl relative z-10 px-4">
-            <h2 class="text-2xl md:text-5xl font-black mb-6 md:mb-8 leading-tight">
+        <div class="container mx-auto max-w-4xl relative z-10 px-4 text-white">
+            <h2 class="text-2xl md:text-5xl font-black mb-6 md:mb-8 leading-tight text-white text-white text-white">
                 <span class="break-phrase">いまから豊島区の</span><br class="md:hidden">
                 <span class="break-phrase">「お題」を探してみよう！</span>
             </h2>
-            <p class="text-sm md:text-xl mb-10 md:mb-12 font-medium opacity-90">
+            <p class="text-sm md:text-xl mb-10 md:mb-12 font-medium opacity-90 text-white text-white text-white text-white text-white">
                 2月以降にエントリーを受け付ける予定です。<br>
                 それまで事前に課題発見をしてみましょう！
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="explore.html" class="bg-white text-orange-600 px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-lg md:text-xl shadow-2xl hover:bg-slate-100 transition">
-                    探検の旅に出発！
-                </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 text-white text-white text-white">
+                <a href="explore.html" class="bg-white text-orange-600 px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-lg md:text-xl shadow-2xl hover:bg-slate-100 transition text-orange-600 text-orange-600 text-orange-600 text-orange-600">探検の旅に出発！</a>
             </div>
         </div>
     </section>
 
     <!-- For Sponsors Section -->
-    <section id="sponsors-cta" class="py-12 md:py-24 px-6 bg-blue-50 border-y border-blue-100 text-slate-800">
-        <div class="container mx-auto max-w-4xl text-center">
-            <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-bold mb-6">
-                FOR PARTNERS
-            </div>
-            <h2 class="text-2xl md:text-5xl font-black mb-6 md:mb-8 text-slate-900 leading-tight">
-                <span class="break-phrase">地域の未来を共に創る</span><br class="md:hidden">
-                <span class="break-phrase text-slate-900">パートナーを募集しています</span>
+    <section id="sponsors-cta" class="py-12 md:py-24 px-6 bg-blue-50 border-y border-blue-100 text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800">
+        <div class="container mx-auto max-w-4xl text-center text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800">
+            <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-bold mb-6 text-white text-white text-white text-white text-white text-white text-white">FOR PARTNERS</div>
+            <h2 class="text-2xl md:text-5xl font-black mb-6 md:mb-8 text-slate-900 leading-tight text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900">
+                <span class="break-phrase text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900">地域の未来を共に創る</span><br class="md:hidden text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900">
+                <span class="break-phrase text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900">パートナーを募集しています</span>
             </h2>
-            <p class="text-sm md:text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto">
-                としまキッズアイデアソンは、地域の企業や行政と連携し、子どもたちの自由な発想を実際に社会実装するプロジェクトです。
-            </p>
-            <a href="support.html" class="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 md:px-10 py-3 md:py-4 rounded-2xl font-bold text-base md:text-xl shadow-lg hover:bg-blue-50 transition transform hover:-translate-y-1">
-                協賛・パートナーシップの詳細を見る
-            </a>
+            <p class="text-sm md:text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto text-slate-600 text-slate-600 text-slate-600 text-slate-600">としまキッズアイデアソンは、地域の企業や行政と連携し、子どもたちの自由な発想を実際に社会実装するプロジェクトです。<br><br>次世代の育成と地域活性化を同時に実現する、本プロジェクトへのご協賛・パートナーシップをご検討いただける企業様を募集しております。</p>
+            <a href="support.html" class="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 md:px-10 py-3 md:py-4 rounded-2xl font-bold text-base md:text-xl shadow-lg hover:bg-blue-50 transition transform hover:-translate-y-1">協賛・パートナーシップの詳細を見る</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="py-12 md:py-20 px-6 bg-gray-900 text-white text-center">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-lg md:text-2xl font-bold mb-8">運営事務局・お問い合わせ</h2>
-            <div class="space-y-2 text-slate-300 text-xs md:text-sm mb-12">
+        <div class="container mx-auto max-w-5xl text-white text-white text-white text-white text-white text-white">
+            <h2 class="text-lg md:text-2xl font-bold mb-8 text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white">運営事務局・お問い合わせ</h2>
+            <div class="space-y-2 text-gray-300 text-xs md:text-sm mb-12 text-slate-300 text-slate-300 text-slate-300 text-slate-300 text-slate-300 text-slate-300">
                 <p><strong>主催：</strong> 豊島区（区民部 地域区民ひろば課 事業グループ）</p>
-                <p><strong>運営：</strong> 株式会社SSAA（<a href="https://www.ssaa.ooo" class="underline hover:text-blue-400 transition">https://www.ssaa.ooo</a>）</p>
+                <p><strong>運営：</strong> 株式会社SSAA（<a href="https://www.ssaa.ooo" class="underline hover:text-blue-400 transition text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400">https://www.ssaa.ooo</a>）</p>
             </div>
             <div class="flex flex-col items-center">
-                <p class="text-[10px] md:text-xs text-gray-400 mb-2 uppercase tracking-widest">Inquiry</p>
-                <p class="text-xl md:text-3xl font-black mb-8 text-blue-400 tracking-tighter">toshima-ideathon@ssaa.ooo</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScArGkIh-Mm3Twksi7stpZiE2qManY7njfPVLlRDv1rK-x54Q/viewform?usp=header" target="_blank" class="inline-block bg-white text-gray-900 px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-sm md:text-base hover:bg-blue-100 transition shadow-xl">フォームで問い合わせる</a>
+                <p class="text-[10px] md:text-xs text-gray-400 mb-2 uppercase tracking-widest text-slate-400 text-slate-400 text-slate-400 text-slate-400 text-slate-400 text-slate-400 text-slate-400">Inquiry</p>
+                <p class="text-xl md:text-3xl font-black mb-8 text-blue-400 tracking-tighter text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400 text-blue-400">toshima-ideathon@ssaa.ooo</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScArGkIh-Mm3Twksi7stpZiE2qManY7njfPVLlRDv1rK-x54Q/viewform?usp=header" target="_blank" class="inline-block bg-white text-gray-900 px-10 py-4 rounded-full font-bold text-sm md:text-base hover:bg-blue-100 transition shadow-xl text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900 text-slate-900">フォームで問い合わせる</a>
             </div>
-            <div class="text-center text-gray-600 text-[10px] md:text-sm mt-16 pt-8 border-t border-gray-800 tracking-widest text-slate-600">
+            <div class="text-center text-gray-600 text-[10px] md:text-sm mt-16 pt-8 border-t border-gray-800 tracking-widest text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600 text-slate-600">
                 &copy; Toshima Kids Ideathon Executive Committee / SSAA Inc. All Rights Reserved.
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Logic -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const overlay = document.getElementById('mobile-menu-overlay');
+        const content = document.getElementById('mobile-menu-content');
+        const spans = menuBtn.querySelectorAll('span');
+        const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMenu() {
+            const isActive = content.classList.contains('active');
+            
+            if (!isActive) {
+                overlay.classList.add('active');
+                content.classList.add('active');
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                overlay.classList.remove('active');
+                content.classList.remove('active');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) toggleMenu();
+        });
+        navLinks.forEach(link => link.addEventListener('click', toggleMenu));
+    </script>
 
 </body>
 </html>
