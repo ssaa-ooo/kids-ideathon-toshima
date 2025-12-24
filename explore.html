@@ -29,14 +29,18 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+        /* 日本語の折り返しを最適化 */
+        .break-phrase {
+            display: inline-block;
+        }
     </style>
 </head>
 <body class="antialiased map-bg text-slate-800">
 
-    <!-- Header / Navigation (index.htmlと共通化) -->
+    <!-- Header / Navigation (index.htmlと完全に統一・モバイル最適化) -->
     <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-lg md:text-xl font-black tracking-tighter text-blue-600 leading-none">
+            <a href="index.html" class="text-base md:text-xl font-black tracking-tighter text-blue-600 leading-none">
                 としまキッズ<span class="text-orange-500">アイデアソン</span>
             </a>
             <nav class="hidden md:flex space-x-6">
@@ -45,18 +49,21 @@
                 <a href="index.html#schedule" class="text-sm font-bold text-gray-600 hover:text-blue-600">スケジュール</a>
                 <a href="support.html" class="text-sm font-bold text-blue-600 hover:text-blue-800">企業の皆様へ</a>
             </nav>
-            <a href="explore.html" class="bg-orange-500 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">参加エントリー</a>
+            <a href="explore.html" class="bg-orange-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[10px] md:text-sm font-bold shadow-lg hover:bg-orange-600 transition text-white">街を探検してみる</a>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="py-12 md:py-20 px-6 text-center">
         <div class="container mx-auto max-w-4xl text-slate-800">
-            <span class="inline-block bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-sm font-bold mb-6 shadow-sm">MISSION: 街の「お題」を見つけよう！</span>
-            <h1 class="text-4xl md:text-6xl font-black mb-8 leading-tight text-slate-900">きみは「街の探検家」だ！<br><span class="text-blue-600 italic">Toshima Adventure</span></h1>
-            <p class="text-lg md:text-xl text-slate-700 mb-8 leading-relaxed font-medium">
-                豊島区には、大人が気づかない「お題（課題）」がたくさん隠れているよ！<br>
-                まずは7つのヒントを見て、気になる場所を探検してみよう。
+            <span class="inline-block bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-xs md:text-sm font-bold mb-6 shadow-sm tracking-wide">MISSION: 街の「お題」を見つけよう！</span>
+            <h1 class="text-3xl md:text-6xl font-black mb-6 md:mb-8 leading-tight text-slate-900">
+                <span class="break-phrase">きみは</span><span class="break-phrase">「街の探検家」だ！</span><br>
+                <span class="text-blue-600 italic">Toshima Adventure</span>
+            </h1>
+            <p class="text-base md:text-xl text-slate-700 mb-8 leading-relaxed font-medium">
+                豊島区の未来を考えるための「お題」をAIと一緒に探してみよう。<br>
+                きみの好きなことや、街で見つけたことを教えてね！
             </p>
         </div>
     </section>
@@ -65,7 +72,7 @@
     <section class="px-6 mb-16">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-10">
-                <h2 class="text-2xl font-black text-blue-800 bg-blue-100 inline-block px-6 py-2 rounded-full">
+                <h2 class="text-xl md:text-2xl font-black text-blue-800 bg-blue-100 inline-block px-6 py-2 rounded-full">
                     探検のヒント：7つのミッション
                 </h2>
             </div>
@@ -108,7 +115,7 @@
                     <p class="text-xs text-slate-500 leading-relaxed">マンガやアニメ、文化の力で、世界中の人を「おもてなし」する工夫はないかな？</p>
                 </div>
                 <!-- 7. 都市整備・住環境 -->
-                <div class="adventure-card bg-white p-6 rounded-[2rem] shadow-lg border-b-4 border-blue-400 sm:col-span-2 lg:col-span-1">
+                <div class="adventure-card bg-white p-6 rounded-[2rem] shadow-lg border-b-4 border-blue-400 sm:col-span-2 lg:col-span-1 text-slate-800">
                     <div class="text-4xl mb-4">🚌</div>
                     <h3 class="font-bold text-blue-700 mb-2">未来の「乗り物・広場」を考えよう</h3>
                     <p class="text-xs text-slate-500 leading-relaxed">イケバスや公園の広場を、もっと使いやすく、もっと便利にする方法はないかな？</p>
@@ -120,43 +127,43 @@
     <!-- AI Adventure Mentor Section -->
     <section class="px-6 mb-20">
         <div class="container mx-auto max-w-3xl text-slate-800">
-            <div class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl border-4 border-blue-200 relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10">
+            <div class="bg-white p-6 md:p-12 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl border-4 border-blue-200 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
                     <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
                 </div>
                 
-                <h2 class="text-2xl md:text-3xl font-black mb-6 text-blue-700 flex items-center gap-3">
+                <h2 class="text-xl md:text-3xl font-black mb-6 text-blue-700 flex items-center gap-3">
                     <span>✨</span> AIアドベンチャー・メンター
                 </h2>
                 
-                <p class="mb-8 font-bold text-slate-600 leading-relaxed">
+                <p class="mb-8 font-bold text-slate-600 text-sm md:text-base leading-relaxed">
                     街で見つけたことや、きみが気になるキーワードを教えて！<br>
                     豊島区の「基本計画」の中から、きみにぴったりのミッションを作るよ。
                 </p>
 
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-sm font-black mb-2 text-blue-600">きみの好きなこと、または街で見つけたことを教えて！</label>
-                        <textarea id="aiInput" class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-blue-500 focus:outline-none transition min-h-[120px] text-slate-800" placeholder="例：アニメが好き、公園にゴミがあった、お花を増やしたい、など"></textarea>
+                        <label class="block text-xs md:text-sm font-black mb-2 text-blue-600">きみの好きなこと、または街で見つけたことを教えて！</label>
+                        <textarea id="aiInput" class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-blue-500 focus:outline-none transition min-h-[120px] text-slate-800 text-sm md:text-base" placeholder="例：アニメが好き、公園にゴミがあった、お花を増やしたい、など"></textarea>
                     </div>
                     
-                    <button id="generateBtn" onclick="generateMission()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xl shadow-lg hover:bg-blue-700 transition transform active:scale-95 flex items-center justify-center gap-3">
+                    <button id="generateBtn" onclick="generateMission()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-lg md:text-xl shadow-lg hover:bg-blue-700 transition transform active:scale-95 flex items-center justify-center gap-3">
                         ミッションを生成する 🚀
                     </button>
                 </div>
 
                 <!-- Loading / Result Display -->
-                <div id="resultArea" class="mt-10 hidden">
-                    <div id="loading" class="ai-shimmer h-32 rounded-2xl flex items-center justify-center font-bold text-blue-600">
+                <div id="resultArea" class="mt-8 md:mt-10 hidden">
+                    <div id="loading" class="ai-shimmer h-32 rounded-2xl flex items-center justify-center font-bold text-blue-600 text-sm md:text-base">
                         豊島区の未来をスキャン中...
                     </div>
                     <div id="missionContent" class="hidden">
                         <div class="bg-orange-50 p-6 rounded-3xl border-2 border-orange-200">
-                            <span class="inline-block bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider text-white">Your Mission</span>
-                            <div id="missionText" class="text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-wrap"></div>
+                            <span class="inline-block bg-orange-500 text-white px-3 py-1 rounded-full text-[10px] font-bold mb-3 uppercase tracking-wider">Your Mission</span>
+                            <div id="missionText" class="text-base md:text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-wrap"></div>
                             <div class="mt-6 pt-6 border-t border-orange-200">
-                                <p class="text-sm font-bold text-orange-700 mb-2 text-orange-700">💡 メンターからのアドバイス</p>
-                                <div id="mentorAdvice" class="text-sm text-slate-600 leading-relaxed"></div>
+                                <p class="text-xs md:text-sm font-bold text-orange-700 mb-2">💡 メンターからのアドバイス</p>
+                                <div id="mentorAdvice" class="text-xs md:text-sm text-slate-600 leading-relaxed"></div>
                             </div>
                         </div>
                     </div>
@@ -166,25 +173,33 @@
     </section>
 
     <!-- Worksheet Download -->
-    <section class="py-16 px-6 bg-blue-600 text-white rounded-[3rem] md:rounded-[5rem] mx-4 mb-20 shadow-2xl">
+    <section class="py-12 md:py-16 px-6 bg-blue-600 text-white rounded-[2.5rem] md:rounded-[5rem] mx-4 mb-20 shadow-2xl text-white">
         <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-3xl md:text-5xl font-black mb-8 italic text-white">Idea Discovery Sheet</h2>
-            <p class="text-lg md:text-xl mb-10 opacity-90 text-white">探検に持っていく「アイデア発見シート」を準備したよ！<br>これを持って豊島区の街に出かけよう。</p>
-            <div class="bg-white/20 backdrop-blur-md p-8 rounded-3xl inline-block border border-white/30 text-white"><p class="font-bold text-xl mb-6 text-white">📝 アイデア発見シート（PDF）</p><button class="bg-white text-blue-600 px-10 py-4 rounded-2xl font-black text-xl hover:bg-blue-50 transition shadow-lg text-blue-600">準備中（近日公開！）</button></div>
+            <h2 class="text-2xl md:text-5xl font-black mb-8 italic">Idea Discovery Sheet</h2>
+            <p class="text-base md:text-xl mb-10 opacity-90 leading-relaxed">
+                探検に持っていく「アイデア発見シート」を準備したよ！<br>
+                これを持って豊島区の街に出かけよう。
+            </p>
+            <div class="bg-white/20 backdrop-blur-md p-6 md:p-8 rounded-3xl inline-block border border-white/30 text-white">
+                <p class="font-bold text-lg md:text-xl mb-6">📝 アイデア発見シート（PDF）</p>
+                <button class="bg-white text-blue-600 px-8 md:px-10 py-3 md:py-4 rounded-2xl font-black text-lg md:text-xl hover:bg-blue-50 transition shadow-lg">
+                    準備中（近日公開！）
+                </button>
+            </div>
         </div>
     </section>
 
     <!-- Footer (index.htmlと共通化) -->
     <footer class="py-12 md:py-20 px-6 bg-gray-900 text-white text-center">
         <div class="container mx-auto max-w-5xl">
-            <h2 class="text-xl md:text-2xl font-bold mb-8 text-white">運営事務局・お問い合わせ</h2>
+            <h2 class="text-lg md:text-2xl font-bold mb-8 text-white">運営事務局・お問い合わせ</h2>
             <div class="space-y-2 text-gray-300 text-xs md:text-sm mb-12 text-slate-300">
                 <p><strong>主催：</strong> 豊島区（区民部 地域区民ひろば課 事業グループ）</p>
                 <p><strong>運営：</strong> 株式会社SSAA（<a href="https://www.ssaa.ooo" class="underline hover:text-blue-400 transition text-blue-400">https://www.ssaa.ooo</a>）</p>
             </div>
             <div class="flex flex-col items-center">
-                <p class="text-xs md:text-sm text-gray-400 mb-2 uppercase tracking-widest text-slate-400">Inquiry</p>
-                <p class="text-2xl md:text-3xl font-black mb-8 text-blue-400 tracking-tighter">toshima-ideathon@ssaa.ooo</p>
+                <p class="text-[10px] md:text-xs text-gray-400 mb-2 uppercase tracking-widest text-slate-400">Inquiry</p>
+                <p class="text-2xl md:text-3xl font-black mb-8 text-blue-400 tracking-tighter text-blue-400">toshima-ideathon@ssaa.ooo</p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScArGkIh-Mm3Twksi7stpZiE2qManY7njfPVLlRDv1rK-x54Q/viewform?usp=header" target="_blank" class="inline-block bg-white text-gray-900 px-10 py-4 rounded-full font-bold text-sm md:text-base hover:bg-blue-100 transition shadow-xl text-slate-900">フォームで問い合わせる</a>
             </div>
             <div class="text-center text-gray-600 text-[10px] md:text-sm mt-16 pt-8 border-t border-gray-800 tracking-widest text-slate-600">
@@ -228,7 +243,7 @@
 7. 未来の乗り物・広場（都市整備）
 
 【回答ルール】
-- 小学校高学年がワクワクするような、冒険心をくすぐる言葉使いをしてください。
+- 小学校高学年がワクワクするような、冒険心をくすすぐる言葉使いをしてください。
 - 以下のJSON形式で答えてください：
 {
   "missionTitle": "ミッションのタイトル（短くキャッチーに）",
