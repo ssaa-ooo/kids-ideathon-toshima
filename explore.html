@@ -105,6 +105,7 @@
             missionContent.classList.add('hidden');
 
             try {
+                // Vercel上の /api/mission を呼び出す
                 const response = await fetch('/api/mission', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -112,7 +113,9 @@
                 });
 
                 const result = await response.json();
-                if (!response.ok) throw new Error(result.error || '通信エラー');
+                if (!response.ok) {
+                    throw new Error(result.error || result.detail || '通信エラーが発生しました。');
+                }
 
                 document.getElementById('missionText').innerText = result.missionTitle + "\n\n" + result.missionDescription;
                 document.getElementById('mentorAdvice').innerText = result.advice;
@@ -120,7 +123,7 @@
                 missionContent.classList.remove('hidden');
             } catch (error) {
                 console.error("Error:", error);
-                alert("エラー: " + error.message);
+                alert("AIリーダーが少し作戦会議中みたいだ：\n" + error.message);
             } finally {
                 generateBtn.disabled = false;
             }
