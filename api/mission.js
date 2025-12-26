@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'APIキーが設定されていません。' });
   }
 
-  // 1. システムプロンプトとユーザー入力を合体させる（最も互換性が高い方法）
+  // 命令を通常のメッセージ（prompt）に組み込むことで、APIのバージョン差異によるエラーを回避します
   const fullPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
 小学校高学年の「ヤング探検家」に向けて、ワクワクする情熱的なトーンで話してください。
 
@@ -25,8 +25,8 @@ export default async function handler(req, res) {
 
 子どもの入力：${input}`;
 
-  // 2. 安定版 v1 エンドポイントを使用
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // v1beta を使用し、モデル名との一致を図ります
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -38,8 +38,8 @@ export default async function handler(req, res) {
             parts: [{ text: fullPrompt }]
           }
         ]
-        // 400エラーの原因となる system_instruction や generation_config 内のオプションを削除し、
-        // プロンプト（text）側ですべてを制御する方式に変更しました。
+        // 400エラーの原因となるオプション項目をすべて削除し、
+        // もっとも基本的なリクエスト構造にしました。
       })
     });
 
@@ -49,16 +49,16 @@ export default async function handler(req, res) {
       console.error("【Gemini APIエラー詳細】", JSON.stringify(data));
       return res.status(response.status).json({ 
         error: 'AIとの通信に失敗しました。',
-        detail: data.error?.message
+        detail: data.error?.message || "Unknown error"
       });
     }
 
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // 3. AIがMarkdownタグ（\`\`\`json ... \`\`\`）を含めて返してきた場合でも、JSON部分だけを抽出する
+    // JSON部分だけを抽出する（AIが前後に解説を付けても大丈夫なようにします）
     let cleanJson = rawText;
-    const jsonMatch = rawText.match(/\{[\s\S]*\}/); // 最初と最後の { } の間を抜き出す
+    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       cleanJson = jsonMatch[0];
     }
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       const result = JSON.parse(cleanJson);
       return res.status(200).json(result);
     } catch (parseError) {
-      console.error("【解析エラー】JSONの形式が正しくありません:", rawText);
+      console.error("【解析エラー】JSON形式ではありません:", rawText);
       return res.status(500).json({ error: 'AIの回答を正しく読み取れませんでした。' });
     }
 
