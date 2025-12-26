@@ -13,14 +13,19 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'APIキーが設定されていません。' });
   }
 
-  const systemPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
+  // 1. システムプロンプトとユーザー入力を合体させる（最も互換性が高い方法）
+  const fullPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
 小学校高学年の「ヤング探検家」に向けて、ワクワクする情熱的なトーンで話してください。
-【回答ルール】
-- 語尾は「〜だ！」「〜だよ！」「〜してみよう！」
-- 必ず以下の純粋なJSONのみで答えてください：
-{"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "リーダーのアドバイス"}`;
 
-  // 安定版 v1 エンドポイントを使用
+【ミッション生成ルール】
+豊島区の基本計画を背景に、以下の「子どもの入力」に合わせた探検ミッションを1つ提案してください。
+回答は必ず以下のJSON形式のみで出力し、余計な解説文は一切含めないでください。
+
+{"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "リーダーのアドバイス"}
+
+子どもの入力：${input}`;
+
+  // 2. 安定版 v1 エンドポイントを使用
   const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
@@ -28,14 +33,13 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: `子どもの入力：${input}` }] }],
-        // 修正ポイント: v1 REST APIの厳格な仕様に合わせ、すべて snake_case に変更しました
-        system_instruction: { 
-          parts: [{ text: systemPrompt }] 
-        },
-        generation_config: { 
-          response_mime_type: "application/json"
-        }
+        contents: [
+          {
+            parts: [{ text: fullPrompt }]
+          }
+        ]
+        // 400エラーの原因となる system_instruction や generation_config 内のオプションを削除し、
+        // プロンプト（text）側ですべてを制御する方式に変更しました。
       })
     });
 
@@ -52,11 +56,20 @@ export default async function handler(req, res) {
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // AIの回答からJSONを安全に取り出す（Markdownタグを除去）
-    const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-    const result = JSON.parse(cleanJson);
+    // 3. AIがMarkdownタグ（\`\`\`json ... \`\`\`）を含めて返してきた場合でも、JSON部分だけを抽出する
+    let cleanJson = rawText;
+    const jsonMatch = rawText.match(/\{[\s\S]*\}/); // 最初と最後の { } の間を抜き出す
+    if (jsonMatch) {
+      cleanJson = jsonMatch[0];
+    }
 
-    return res.status(200).json(result);
+    try {
+      const result = JSON.parse(cleanJson);
+      return res.status(200).json(result);
+    } catch (parseError) {
+      console.error("【解析エラー】JSONの形式が正しくありません:", rawText);
+      return res.status(500).json({ error: 'AIの回答を正しく読み取れませんでした。' });
+    }
 
   } catch (error) {
     console.error("【サーバー内部エラー】", error.message);
