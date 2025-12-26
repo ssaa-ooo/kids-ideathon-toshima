@@ -1,45 +1,44 @@
 // Vercel Serverless Function
-// このファイルは GitHub リポジトリの /api/mission.js に配置してください。
+// 配置場所: GitHubリポジトリの /api/mission.js
 
 export default async function handler(req, res) {
-  // POST以外のメソッドは拒否
+  // POSTメソッド以外はエラーを返す
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   const { input } = req.body;
-  const apiKey = process.env.GEMINI_API_KEY; 
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    console.error("Critical Error: GEMINI_API_KEY is not set in Vercel.");
-    return res.status(500).json({ message: 'API Key not configured.' });
+    console.error("【設定エラー】Vercelの環境変数 GEMINI_API_KEY が見つかりません。");
+    return res.status(500).json({ error: 'サーバーのAPIキー設定が完了していません。' });
   }
 
+  // 探検隊リーダーのプロンプト
   const systemPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
-子どもたち（小学校高学年〜中学生）を「ヤング探検家」と呼び、情熱的でワクワクするトーンで話してください。
-豊島区の基本計画（学校・遊び場、安心・安全、福祉、商店街、環境、カルチャー、都市整備）を背景に、子どもの入力に合わせて探検ミッションを提案してください。
+小学校高学年の「ヤング探検家」に向けて、ワクワクする情熱的なトーンで話してください。
+【回答ルール】
+- 語尾は「〜だ！」「〜だよ！」「〜してみよう！」
+- 必ず以下の純粋なJSONのみで答えてください：
+{"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "リーダーのアドバイス"}`;
 
-【回答のルール】
-- 語尾には「〜だ！」「〜だよ！」など冒険心をくすぐる言葉を使って。
-- ミッションのタイトルは、映画のタイトルのようにワクワクするものに。
-- 必ず以下の純粋なJSON形式のみで答えてください（Markdownの装飾などは不要です）：
-{"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "熱いアドバイス"}`;
-
-  // APIエンドポイント (gemini-1.5-flash)
+  // REST API v1beta のエンドポイント
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
+    // Google APIへのリクエスト（REST APIの正しいパラメータ名を使用）
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: `子どもの入力：${input}` }] }],
-        // REST API v1beta の標準形式に合わせる
-        systemInstruction: { 
+        // 重要：REST APIでは snake_case を使用する必要があります
+        system_instruction: { 
           parts: [{ text: systemPrompt }] 
         },
-        generationConfig: { 
-          responseMimeType: "application/json"
+        generation_config: { 
+          response_mime_type: "application/json"
         }
       })
     });
@@ -47,22 +46,27 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-        console.error("Gemini API Error Detail:", JSON.stringify(data));
-        return res.status(response.status).json({ message: 'Gemini API Error', details: data.error?.message });
+      console.error("【Gemini APIエラー】", JSON.stringify(data));
+      return res.status(response.status).json({ 
+        error: 'Google AIとの通信に失敗しました。',
+        detail: data.error?.message || "Unknown error"
+      });
     }
 
-    // AIの回答テキストを取得
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!rawText) throw new Error('No content in AI response');
+    if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // マークダウン装飾（```jsonなど）が含まれる場合を考慮してクリーニング
-    const jsonText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-    const result = JSON.parse(jsonText);
+    // 余計な記号を消してJSONを解析
+    const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const result = JSON.parse(cleanJson);
 
     return res.status(200).json(result);
 
   } catch (error) {
-    console.error("Function Handler Error:", error.message);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    console.error("【サーバー内部エラー】", error.message);
+    return res.status(500).json({ 
+      error: 'サーバー内で問題が発生しました。', 
+      detail: error.message 
+    });
   }
 }
