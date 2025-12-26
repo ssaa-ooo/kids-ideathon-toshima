@@ -14,8 +14,8 @@ export default async function handler(req, res) {
 
 子どもの入力：${input}`;
 
-  // 最も安定している v1 エンドポイントを使用し、モデル名から -latest を削除しています
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // エンドポイントを v1beta に、モデルを gemini-1.5-flash に設定
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -28,19 +28,18 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Google APIがエラーを返した場合の処理
     if (!response.ok) {
-      console.error("【Google API Error】", data);
+      console.error("【Google API Error】", JSON.stringify(data));
       return res.status(response.status).json({ 
         error: "AI連携エラー", 
-        detail: data.error?.message || "Google APIとの通信に失敗しました。"
+        detail: data.error?.message || "通信エラー"
       });
     }
 
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error("AIの回答が空でした。");
 
-    // JSON部分だけを取り出す
+    // JSON部分だけを正規表現で取り出す（念のための処理）
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error("有効なJSONが返されませんでした。");
 
