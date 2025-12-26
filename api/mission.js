@@ -10,10 +10,11 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    return res.status(500).json({ error: 'APIキーが設定されていません。' });
+    console.error("【設定エラー】Vercelの環境変数 GEMINI_API_KEY が設定されていません。");
+    return res.status(500).json({ error: 'APIキーが設定されていません。VercelのSettingsを確認してください。' });
   }
 
-  // 命令を通常のメッセージ（prompt）に組み込むことで、APIのバージョン差異によるエラーを回避します
+  // 命令をプロンプトの中に完全に組み込む（systemInstructionフィールドを使わないことで400/404エラーを回避）
   const fullPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
 小学校高学年の「ヤング探検家」に向けて、ワクワクする情熱的なトーンで話してください。
 
@@ -25,7 +26,8 @@ export default async function handler(req, res) {
 
 子どもの入力：${input}`;
 
-  // v1beta を使用し、モデル名との一致を図ります
+  // エンドポイントを v1beta に設定（1.5 Flashモデルに最も適したエンドポイント）
+  // モデル名が見つからないエラーへの対策として、最も標準的な gemini-1.5-flash を指定
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
@@ -38,8 +40,8 @@ export default async function handler(req, res) {
             parts: [{ text: fullPrompt }]
           }
         ]
-        // 400エラーの原因となるオプション項目をすべて削除し、
-        // もっとも基本的なリクエスト構造にしました。
+        // 404や400エラーの温床となるパラメータ（systemInstruction等）をすべて削除し、
+        // プロンプト側だけで制御する「最も壊れにくい」リクエスト形式です。
       })
     });
 
@@ -47,6 +49,15 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       console.error("【Gemini APIエラー詳細】", JSON.stringify(data));
+      
+      // 404エラー（Not Found）の場合のアドバイスを含める
+      if (response.status === 404) {
+        return res.status(404).json({ 
+          error: 'AIモデルが見つかりません(404)', 
+          detail: 'お使いのAPIキーが作成されたプロジェクトで「Generative Language API」が有効になっているか、Google AI Studioの設定を確認してください。' 
+        });
+      }
+
       return res.status(response.status).json({ 
         error: 'AIとの通信に失敗しました。',
         detail: data.error?.message || "Unknown error"
@@ -56,7 +67,7 @@ export default async function handler(req, res) {
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // JSON部分だけを抽出する（AIが前後に解説を付けても大丈夫なようにします）
+    // JSON部分だけを抽出する
     let cleanJson = rawText;
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
