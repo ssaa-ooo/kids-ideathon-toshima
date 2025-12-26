@@ -6,12 +6,16 @@ export default async function handler(req, res) {
 
   if (!apiKey) return res.status(500).json({ error: 'APIキーが設定されていません。' });
 
-  const fullPrompt = `あなたは豊島区のリーダーです。小学生向けにワクワクする探検ミッションを1つ提案してください。回答は必ず以下のJSON形式のみで出力してください。
-  {"missionTitle": "ミッション名", "missionDescription": "内容", "advice": "アドバイス"}
-  入力：${input}`;
+  const fullPrompt = `あなたは豊島区の未来を考える「としま探検隊のリーダー」です。
+小学生向けに、最新の街の状況を踏まえたワクワクする探検ミッションを1つ提案してください。
+回答は必ず以下のJSON形式のみで出力してください。
 
-  // 【修正】エンドポイントを v1 に変更
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+{"missionTitle": "ミッション名", "missionDescription": "内容", "advice": "アドバイス"}
+
+子どもの入力：${input}`;
+
+  // 【最新版】Gemini 3 Flash Preview モデルを使用
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -25,9 +29,9 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("【Google API Error】", JSON.stringify(data));
+      console.error("【Gemini API Error】", JSON.stringify(data));
       return res.status(response.status).json({ 
-        error: "AI連携エラー", 
+        error: "AIモデル接続エラー", 
         detail: data.error?.message || "通信エラー" 
       });
     }
