@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>としまクリエイティブ・クエスト</title>
+
+    <!-- 自動転送スクリプト：github.ioへのアクセスを検知してVercelへ飛ばす -->
+    <script>
+        if (window.location.hostname.includes('github.io')) {
+            window.location.href = window.location.href.replace('ssaa-ooo.github.io/kids-ideathon-toshima', 'kids-ideathon-toshima.vercel.app');
+        }
+    </script>
+
     <style>
         /* =========================================
            基本スタイル（画面用・変更なし）
@@ -44,7 +52,7 @@
             width: 100%; padding: 12px; border: 2px solid #b0bec5; border-radius: 8px;
             font-size: 1em; box-sizing: border-box;
         }
-        input:focus, textarea:focus { border-color: #0288d1; outline: none; background: #f1f8e9; }
+        input:focus, textarea:focus { border-color: #0288d1; outline: none; background: #f1f8e green; }
 
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
         button {
@@ -369,23 +377,33 @@
     </div>
 
     <script>
-        // データ復元・保存・削除ロジックは前回と同じ
+        // セッション内での一時保存用オブジェクト
+        let state = {};
+
         window.onload = function() {
-            const fields = ['inName', 'inGrade', 'inIssue', 'inGoal', 'inIdeaName', 'inIdeaDesc', 'inTarget', 'inCost', 'inMarket', 'inFuture'];
-            fields.forEach(id => { if(localStorage.getItem(id)) document.getElementById(id).value = localStorage.getItem(id); });
+            // 自動転送済みドメイン（Vercel）であれば、必要に応じて初期化
         };
+
         function saveData() {
             const fields = ['inName', 'inGrade', 'inIssue', 'inGoal', 'inIdeaName', 'inIdeaDesc', 'inTarget', 'inCost', 'inMarket', 'inFuture'];
-            fields.forEach(id => { localStorage.setItem(id, document.getElementById(id).value); });
+            fields.forEach(id => { 
+                state[id] = document.getElementById(id).value; 
+            });
         }
+
         function clearData() {
-            if(confirm('データを削除しますか？')) { localStorage.clear(); location.reload(); }
+            if(confirm('入力を最初からやりなおしますか？（現在の内容は消えてしまいます）')) { 
+                state = {}; 
+                location.reload(); 
+            }
         }
+
         function goStep(step) {
             document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
             document.getElementById('step-' + step).classList.add('active');
             window.scrollTo(0, 0);
         }
+
         function prepareSheet() {
             // データ転記
             document.getElementById('outName').innerText = document.getElementById('inName').value;
