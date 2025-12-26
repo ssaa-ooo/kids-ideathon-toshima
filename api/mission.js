@@ -29,12 +29,12 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: `子どもの入力：${input}` }] }],
-        // 修正ポイント: エラーに基づき、snake_caseからcamelCaseに戻しました
-        systemInstruction: { 
+        // 修正ポイント: v1 REST APIの厳格な仕様に合わせ、すべて snake_case に変更しました
+        system_instruction: { 
           parts: [{ text: systemPrompt }] 
         },
-        generationConfig: { 
-          responseMimeType: "application/json"
+        generation_config: { 
+          response_mime_type: "application/json"
         }
       })
     });
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // AIの回答からJSONを安全に取り出す
+    // AIの回答からJSONを安全に取り出す（Markdownタグを除去）
     const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
     const result = JSON.parse(cleanJson);
 
