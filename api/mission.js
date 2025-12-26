@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 - 必ず以下の純粋なJSONのみで答えてください：
 {"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "リーダーのアドバイス"}`;
 
-  // 修正ポイント: v1beta から v1 エンドポイントへ変更
+  // 安定版 v1 エンドポイントを使用
   const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
@@ -29,12 +29,12 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: `子どもの入力：${input}` }] }],
-        // 安定版 API v1 でも system_instruction は使用可能です
-        system_instruction: { 
+        // 修正ポイント: エラーに基づき、snake_caseからcamelCaseに戻しました
+        systemInstruction: { 
           parts: [{ text: systemPrompt }] 
         },
-        generation_config: { 
-          response_mime_type: "application/json"
+        generationConfig: { 
+          responseMimeType: "application/json"
         }
       })
     });
@@ -43,7 +43,6 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       console.error("【Gemini APIエラー詳細】", JSON.stringify(data));
-      // v1betaで404が出る場合、このv1への切り替えで解消されます
       return res.status(response.status).json({ 
         error: 'AIとの通信に失敗しました。',
         detail: data.error?.message
@@ -53,6 +52,7 @@ export default async function handler(req, res) {
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
+    // AIの回答からJSONを安全に取り出す
     const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
     const result = JSON.parse(cleanJson);
 
