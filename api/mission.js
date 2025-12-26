@@ -2,7 +2,6 @@
 // 配置場所: GitHubリポジトリの /api/mission.js
 
 export default async function handler(req, res) {
-  // POSTメソッド以外はエラーを返す
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
@@ -11,11 +10,9 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    console.error("【設定エラー】Vercelの環境変数 GEMINI_API_KEY が見つかりません。");
-    return res.status(500).json({ error: 'サーバーのAPIキー設定が完了していません。' });
+    return res.status(500).json({ error: 'APIキーが設定されていません。' });
   }
 
-  // 探検隊リーダーのプロンプト
   const systemPrompt = `あなたは豊島区の未来を一緒に考える「としま探検隊のリーダー」です。
 小学校高学年の「ヤング探検家」に向けて、ワクワクする情熱的なトーンで話してください。
 【回答ルール】
@@ -23,17 +20,16 @@ export default async function handler(req, res) {
 - 必ず以下の純粋なJSONのみで答えてください：
 {"missionTitle": "ミッション名", "missionDescription": "具体的な内容", "advice": "リーダーのアドバイス"}`;
 
-  // REST API v1beta のエンドポイント
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // 修正ポイント: v1beta から v1 エンドポイントへ変更
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
-    // Google APIへのリクエスト（REST APIの正しいパラメータ名を使用）
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: `子どもの入力：${input}` }] }],
-        // 重要：REST APIでは snake_case を使用する必要があります
+        // 安定版 API v1 でも system_instruction は使用可能です
         system_instruction: { 
           parts: [{ text: systemPrompt }] 
         },
@@ -46,17 +42,17 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("【Gemini APIエラー】", JSON.stringify(data));
+      console.error("【Gemini APIエラー詳細】", JSON.stringify(data));
+      // v1betaで404が出る場合、このv1への切り替えで解消されます
       return res.status(response.status).json({ 
-        error: 'Google AIとの通信に失敗しました。',
-        detail: data.error?.message || "Unknown error"
+        error: 'AIとの通信に失敗しました。',
+        detail: data.error?.message
       });
     }
 
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) throw new Error('AIからの回答が空でした。');
 
-    // 余計な記号を消してJSONを解析
     const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
     const result = JSON.parse(cleanJson);
 
@@ -64,9 +60,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error("【サーバー内部エラー】", error.message);
-    return res.status(500).json({ 
-      error: 'サーバー内で問題が発生しました。', 
-      detail: error.message 
-    });
+    return res.status(500).json({ error: 'サーバー内で問題が発生しました。', detail: error.message });
   }
 }
