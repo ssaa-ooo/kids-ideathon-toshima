@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 子どもの入力：${input}`;
 
   // 修正ポイント：モデル名を「gemini-1.5-flash-latest」に変更し、v1beta エンドポイントを使用
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
