@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豊島区の「リアル」を見つけよう！｜としまキッズアイデアソン</title>
+    <title>「としまアイデア」探検隊｜豊島区のリアルを見つけよう！</title>
     
     <!-- 自動転送スクリプト：github.ioへのアクセスを検知してVercelへ飛ばす -->
     <script>
@@ -44,12 +44,12 @@
         <div class="container mx-auto max-w-4xl text-slate-800">
             <span class="inline-block bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-xs font-black mb-4 tracking-widest uppercase text-orange-600">Social Listening</span>
             <h1 class="text-3xl md:text-5xl font-black mb-6 leading-tight text-slate-900">
-                <span class="break-phrase">豊島区の</span><span class="break-phrase">「リアル」な声</span><br>
-                <span class="text-blue-600 italic">Threads Feed</span>
+                <span class="break-phrase">豊島区の</span><span class="break-phrase">「お題」発見：</span><br>
+                <span class="text-blue-600 italic">としまアイデア</span>
             </h1>
             <p class="text-sm md:text-lg text-slate-600 font-medium">
-                <span class="break-phrase">街の人たちは、</span><span class="break-phrase">いま何に困っているかな？</span><br>
-                <span class="break-phrase">SNSのリアルな声から、</span><span class="break-phrase">アイデアのヒントを見つけよう！</span>
+                <span class="break-phrase">街の人たちが考えている</span><span class="break-phrase">「としまアイデア」を見てみよう！</span><br>
+                <span class="break-phrase">SNSのリアルな声から、</span><span class="break-phrase">きみのアイデアを広げるヒントを見つけてね。</span>
             </p>
         </div>
     </section>
@@ -112,7 +112,7 @@
                         container.innerHTML += card;
                     });
                 } else {
-                    container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">まだ投稿が見つからないよ。あとで見てみてね！</p>';
+                    container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">「としまアイデア」に関する投稿がまだ見つからないよ。あとで見てみてね！</p>';
                 }
 
             } catch (error) {
