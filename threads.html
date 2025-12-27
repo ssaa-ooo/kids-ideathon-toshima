@@ -64,7 +64,7 @@
 
         <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-700 p-6 rounded-2xl text-center">
             <p class="font-bold">投稿を読み込めなかったみたいだ...</p>
-            <p class="text-sm mt-2">Vercelのドメインでアクセスしているか、APIの設定を確認してね！</p>
+            <p id="error-detail" class="text-sm mt-2">Vercelのドメインでアクセスしているか、APIの設定を確認してね！</p>
         </div>
     </section>
 
@@ -76,24 +76,29 @@
         async function fetchThreads() {
             const container = document.getElementById('threads-container');
             const errorMsg = document.getElementById('error-message');
+            const errorDetail = document.getElementById('error-detail');
 
             try {
-                // 自前のVercel APIを呼び出し
+                // 自前のVercel API（/api/threads）を呼び出し
+                // サーバー側で「としまアイデア」を検索するように変更済み
                 const response = await fetch('/api/threads');
                 const result = await response.json();
 
-                if (!response.ok) throw new Error(result.error);
+                if (!response.ok) {
+                    throw new Error(result.detail || result.error || '通信エラー');
+                }
 
                 container.innerHTML = ''; 
 
-                // 特定のキーワード「としまアイデア」が含まれる投稿のみを抽出
-                const filteredData = (result.data || []).filter(post => 
-                    post.text && post.text.includes('としまアイデア')
-                );
+                // APIから返ってきた全ユーザーの検索結果を抽出
+                const posts = result.data || [];
 
-                if (filteredData.length > 0) {
-                    filteredData.forEach(post => {
+                if (posts.length > 0) {
+                    posts.forEach(post => {
                         const date = new Date(post.timestamp).toLocaleDateString('ja-JP');
+                        
+                        // テキストが空、またはキーワードが含まれない場合はスキップ（二重チェック）
+                        if (!post.text || !post.text.includes('としまアイデア')) return;
 
                         const card = `
                             <div class="thread-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
@@ -112,7 +117,10 @@
                         `;
                         container.innerHTML += card;
                     });
-                } else {
+                } 
+                
+                // フィルタリング後の結果がゼロだった場合
+                if (container.innerHTML === '') {
                     container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">「としまアイデア」に関する投稿がまだ見つからないよ。あとで見てみてね！</p>';
                 }
 
@@ -120,6 +128,7 @@
                 console.error("Threads Error:", error);
                 container.classList.add('hidden');
                 errorMsg.classList.remove('hidden');
+                errorDetail.innerText = "エラー詳細: " + error.message;
             }
         }
 
